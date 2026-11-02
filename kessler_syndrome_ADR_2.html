@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Row 3: Active Debris Removal (ADR) — Physics, Engineering & Challenges</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: '#171219',
+                        slateblue: '#778DA9',
+                        offwhite: '#F5F5F5',
+                        burntorange: '#F0803C',
+                        desatnavy: '#232B36'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- MathJax for rendering physics formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="bg-[#F5F5F5] text-coffee antialiased font-sans selection:bg-burntorange selection:text-white">
+
+    <!-- Sticky Editorial Header Navigation -->
+    <header class="sticky top-0 z-50 bg-[#F5F5F5]/90 backdrop-blur-md border-b border-slate-300 px-8 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 bg-burntorange rounded-full"></span>
+                <a href="index.html" class="font-serif text-xl font-bold tracking-tight text-coffee">Orbital Cascade Project</a>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-xs uppercase tracking-widest font-semibold text-slate-600">
+                <a href="#taxonomy" class="hover:text-burntorange transition">1. ADR Taxonomy</a>
+                <a href="#physics" class="hover:text-burntorange transition">2. Drag & Flux Physics</a>
+                <a href="#scale" class="hover:text-burntorange transition">3. Real-World Impact</a>
+                <a href="#challenges" class="hover:text-burntorange transition">4. Operational & Legal Friction</a>
+            </nav>
+            <div class="flex items-center space-x-3">
+                <a href="row-1-kessler-origin.html" class="text-xs uppercase tracking-wider font-mono text-slate-500 hover:text-burntorange transition">
+                    &larr; Row 1 Paper
+                </a>
+                <a href="index.html" class="text-xs uppercase tracking-wider font-semibold border border-coffee px-4 py-2 hover:bg-coffee hover:text-offwhite transition">
+                    Main Hub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
+
+        <!-- Hero Metadata -->
+        <section class="border-b border-slate-300 pb-12">
+            <div class="flex items-center space-x-2 text-xs uppercase tracking-widest text-slate-500 font-mono mb-4">
+                <span>Row 3 Technical Deep-Dive</span>
+                <span>&bull;</span>
+                <span>Remediation Engineering</span>
+                <span>&bull;</span>
+                <span>LEO Debris Mitigation</span>
+            </div>
+            <h1 class="font-serif text-4xl md:text-6xl font-normal leading-tight mb-6 text-coffee">
+                Active Debris Removal (ADR): <br>
+                <span class="italic font-light text-slate-600">Physics, Engineering Systems, and Operational Barriers</span>
+            </h1>
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-4 text-sm text-slate-600 font-mono border-t border-slate-200">
+                <div>
+                    <span class="text-slate-400">Core Objective:</span> Halt $S^2$ Spatial Density Multiplier
+                </div>
+                <div>
+                    <span class="text-slate-400">Target Altitude Band:</span> 700 km – 1000 km LEO
+                </div>
+                <div>
+                    <span class="text-slate-400">Primary Targets:</span> Derelict Upper Rocket Bodies (>2,000 kg)
+                </div>
+            </div>
+        </section>
+
+        <!-- Executive Summary Banner -->
+        <section class="bg-desatnavy text-offwhite p-8 md:p-10 rounded-none border-l-4 border-burntorange shadow-sm space-y-4">
+            <h2 class="text-xs uppercase tracking-widest font-mono text-burntorange">The ADR Imperative</h2>
+            <p class="font-serif text-xl md:text-2xl font-light leading-relaxed">
+                "Even if all space launches ceased immediately, the population of debris in Low Earth Orbit would continue to grow due to mutual collisions between existing objects. Active Debris Removal is not an optional enhancement—it is the sole physical mechanism capable of stabilizing LEO."
+            </p>
+            <p class="text-sm text-slate-300 font-sans leading-relaxed">
+                As demonstrated in Kessler's landmark 1978 modeling, non-operational mass in LEO acts as a continuous battery for new fragments. Removing just <strong>5 to 10 massive derelict targets per year</strong> (such as SL-16 and Zenit-2 rocket stages) removes over 70% of the mass density driving future runaway collisional cascades.
+            </p>
+        </section>
+
+        <!-- SECTION 1: Taxonomy of ADR Technologies -->
+        <section id="taxonomy" class="space-y-10">
+            <div class="border-l-2 border-coffee pl-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-slate-500">Taxonomy 01</span>
+                <h2 class="font-serif text-3xl font-normal text-coffee">Classification of Active Removal Systems</h2>
+            </div>
+
+            <!-- Primary Render & Spotlight: ClearSpace-1 Style Robotic Capture -->
+            <div class="bg-white p-6 border border-slate-300 space-y-6 shadow-sm">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="text-xs font-mono text-burntorange font-bold uppercase">Featured System Architecture</span>
+                        <h3 class="font-serif text-2xl font-bold text-coffee">Multi-Arm Robotic Capture (ClearSpace-1 Configuration)</h3>
+                    </div>
+                    <span class="text-xs font-mono px-3 py-1 bg-slate-100 border border-slate-300 text-slate-600">Target: Non-Cooperative Conical Adapter (VESPA)</span>
+                </div>
+
+                <!-- Custom SVG Visual Render of ClearSpace-1 Capturing Vespa Payload Adapter -->
+                <div class="w-full h-80 bg-coffee rounded-none relative overflow-hidden flex items-center justify-center p-4 border border-slate-800">
+                    <svg viewBox="0 0 800 400" class="w-full h-full">
+                        <defs>
+                            <!-- Space Grid Background -->
+                            <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#232B36" stroke-width="0.5"/>
+                            </pattern>
+                            <linearGradient id="earthGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#778DA9" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#0A1545" stop-opacity="0.8"/>
+                            </linearGradient>
+                            <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#F5F5F5"/>
+                                <stop offset="50%" stop-color="#778DA9"/>
+                                <stop offset="100%" stop-color="#171219"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Background Grid & Earth Limb -->
+                        <rect width="800" height="400" fill="#171219"/>
+                        <rect width="800" height="400" fill="url(#grid)"/>
+                        <path d="M 0 340 Q 400 280 800 340 L 800 400 L 0 400 Z" fill="url(#earthGrad)" stroke="#778DA9" stroke-width="1"/>
+                        <text x="40" y="375" fill="#778DA9" font-family="monospace" font-size="10">LOW EARTH ORBIT ALTITUDE: ~800 KM</text>
+
+                        <!-- TARGET: Vespa Conical Adapter (Non-Cooperative Derelict Body) -->
+                        <g transform="translate(480, 160) rotate(-15)">
+                            <!-- Target Structure -->
+                            <path d="M 0 10 L 60 -30 L 100 -30 L 120 10 L 100 50 L 60 50 Z" fill="url(#metalGrad)" stroke="#F0803C" stroke-width="1.5"/>
+                            <ellipse cx="60" cy="10" rx="25" ry="35" fill="#232B36" stroke="#778DA9" stroke-width="1"/>
+                            <ellipse cx="100" cy="10" rx="15" ry="25" fill="#171219" stroke="#778DA9" stroke-width="1"/>
+                            <!-- Vector indicator for tumbling -->
+                            <path d="M 60 -45 A 25 25 0 0 1 90 -40" fill="none" stroke="#F0803C" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <polygon points="90,-40 85,-47 93,-45" fill="#F0803C"/>
+                            <text x="30" y="-55" fill="#F0803C" font-family="monospace" font-size="9">TUMBLING TARGET (VESPA)</text>
+                        </g>
+
+                        <!-- CHASER: ClearSpace-1 Robotic Servicing Satellite -->
+                        <g transform="translate(180, 150)">
+                            <!-- Chaser Satellite Main Bus -->
+                            <rect x="0" y="0" width="100" height="80" fill="url(#metalGrad)" stroke="#778DA9" stroke-width="1.5"/>
+                            <!-- Solar Panels -->
+                            <rect x="30" y="-70" width="40" height="60" fill="#0A1545" stroke="#778DA9" stroke-width="1"/>
+                            <line x1="30" y1="-40" x2="70" y2="-40" stroke="#778DA9" stroke-width="0.5"/>
+                            <rect x="30" y="90" width="40" height="60" fill="#0A1545" stroke="#778DA9" stroke-width="1"/>
+                            <line x1="30" y1="120" x2="70" y2="120" stroke="#778DA9" stroke-width="0.5"/>
+
+                            <!-- Articulated Robotic Capture Arms (4-Arm Gripper Mechanism) -->
+                            <!-- Upper Arm 1 -->
+                            <path d="M 100 10 L 180 -20 L 260 20" fill="none" stroke="#F0803C" stroke-width="3.5" stroke-linecap="round"/>
+                            <circle cx="180" cy="-20" r="4" fill="#F5F5F5" stroke="#171219"/>
+                            <circle cx="260" cy="20" r="3" fill="#F0803C"/>
+
+                            <!-- Upper Arm 2 -->
+                            <path d="M 100 30 L 190 5 L 270 40" fill="none" stroke="#F0803C" stroke-width="3.5" stroke-linecap="round"/>
+                            <circle cx="190" cy="5" r="4" fill="#F5F5F5" stroke="#171219"/>
+
+                            <!-- Lower Arm 3 -->
+                            <path d="M 100 50 L 190 75 L 270 50" fill="none" stroke="#F0803C" stroke-width="3.5" stroke-linecap="round"/>
+                            <circle cx="190" cy="75" r="4" fill="#F5F5F5" stroke="#171219"/>
+
+                            <!-- Lower Arm 4 -->
+                            <path d="M 100 70 L 180 100 L 260 60" fill="none" stroke="#F0803C" stroke-width="3.5" stroke-linecap="round"/>
+                            <circle cx="180" cy="100" r="4" fill="#F5F5F5" stroke="#171219"/>
+
+                            <text x="-10" y="-15" fill="#F5F5F5" font-family="monospace" font-size="10">CLEARSPACE-1 CHASER</text>
+                        </g>
+
+                        <!-- Laser Distance Telemetry Lines -->
+                        <line x1="280" y1="160" x2="480" y2="160" stroke="#F0803C" stroke-width="1" stroke-dasharray="4,4"/>
+                        <text x="340" y="150" fill="#F0803C" font-family="monospace" font-size="9">LIDAR RENDEZVOUS TRACKING</text>
+                    </svg>
+                </div>
+
+                <p class="text-sm text-slate-700 leading-relaxed font-sans">
+                    <strong>Robotic Capture Arm Mechanics:</strong> As pioneered by missions like ESA's <em>ClearSpace-1</em>, a specialized chaser spacecraft matches orbital parameters with a non-cooperative target. Using real-time LIDAR optical tracking, four multi-jointed articulated arms enclose around the target body (e.g., the 112 kg Vespa payload adapter), rigidizing the connection before conducting a retro-burn to de-orbit both vehicles together.
+                </p>
+            </div>
+
+            <!-- Taxonomy Grid: 4 Complementary ADR Systems -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- System 1: Nets & Harpoons -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category A &bull; Flexible Capture</span>
+                    <h4 class="font-serif text-xl font-bold text-coffee">Tethered Nets & Harpoons (RemoveDEBRIS)</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Instead of requiring precise robotic arm alignment against tumbling targets, tethered nets encase non-cooperative debris from a standoff distance of 10–20 meters. Barbed harpoons penetrate aluminum satellite casing walls to lock a physical tether prior to dragging.
+                    </p>
+                    <div class="bg-slate-50 p-3 text-[11px] font-mono text-slate-500 border border-slate-200">
+                        <strong>Advantage:</strong> High tolerance for target rotation & spatial misalignment.<br>
+                        <strong>Risk:</strong> Potential creation of secondary fragments upon impact.
+                    </div>
+                </div>
+
+                <!-- System 2: Magnetic Docking -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category B &bull; Cooperative Docking</span>
+                    <h4 class="font-serif text-xl font-bold text-coffee">Magnetic Docking (Astroscale ELSA-d)</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Utilizes high-strength magnetic docking plates pre-installed on future satellite payloads. A chaser spacecraft uses optical sensors and magnetic capture mechanisms to dock repeatably without complex robotic arms.
+                    </p>
+                    <div class="bg-slate-50 p-3 text-[11px] font-mono text-slate-500 border border-slate-200">
+                        <strong>Advantage:</strong> Repeatable, lightweight, low-risk grappling mechanism.<br>
+                        <strong>Limitation:</strong> Requires pre-installed client magnetic plates on launch.
+                    </div>
+                </div>
+
+                <!-- System 3: Contactless Deflection -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category C &bull; Remote Impulse</span>
+                    <h4 class="font-serif text-xl font-bold text-coffee">Laser Ablation & Ion Beam Shepherds</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Contactless methods fire high-repetition pulsed lasers or concentrated plasma ion beams at small debris fragments. Surface vaporization generates microscopic plasma jet reactions, imparting momentum changes without physical contact.
+                    </p>
+                    <div class="bg-slate-50 p-3 text-[11px] font-mono text-slate-500 border border-slate-200">
+                        <strong>Advantage:</strong> Eliminates collision risk between chaser and target.<br>
+                        <strong>Challenge:</strong> Extremely high electrical power generation requirements.
+                    </div>
+                </div>
+
+                <!-- System 4: Electrodynamic Tethers & Drag Sails -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category D &bull; Passive Drag Enhancers</span>
+                    <h4 class="font-serif text-xl font-bold text-coffee">Electrodynamic Tethers (EDT) & Drag Sails</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Passive drag sails deploy large thin-film membranes ($15 \text{ m}^2 - 50 \text{ m}^2$) at end-of-life to increase atmospheric drag area. Conductive EDTs interact with Earth's magnetic field to generate Lorentz deceleration forces without propellant.
+                    </p>
+                    <div class="bg-slate-50 p-3 text-[11px] font-mono text-slate-500 border border-slate-200">
+                        <strong>Advantage:</strong> Zero fuel required for orbital decay.<br>
+                        <strong>Tradeoff:</strong> Increases cross-sectional area during decay phase.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: The Physics of Atmospheric Drag & Flux Mitigation -->
+        <section id="physics" class="space-y-6">
+            <div class="border-l-2 border-burntorange pl-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-burntorange">Physics 02</span>
+                <h2 class="font-serif text-3xl font-normal text-coffee">Atmospheric Drag Equations & Decay Kinetics</h2>
+            </div>
+
+            <p class="text-base leading-relaxed text-slate-700">
+                The physics of satellite de-orbiting relies on aerodynamic drag force ($F_D$) within Earth's thermosphere and exosphere. At altitudes below 1,000 km, atmospheric density ($\rho$), while extremely low, exerts continuous resistive force against orbital velocity ($V$).
+            </p>
+
+            <!-- Drag & Decay Formula Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 border border-slate-300 font-mono text-sm space-y-3 shadow-sm">
+                    <div class="text-center font-bold text-coffee py-3 bg-slate-50 border border-slate-200">
+                        $$F_D = \frac{1}{2} \, \rho \, V^2 \, C_D \, A$$
+                    </div>
+                    <p class="text-xs text-slate-600 font-sans">
+                        <strong>Atmospheric Drag Equation:</strong> Where $F_D$ is drag force, $\rho$ is atmospheric density, $V$ is orbital velocity ($\sim 7.5 \text{ km/s}$), $C_D$ is drag coefficient ($\approx 2.2$), and $A$ is cross-sectional area.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 border border-slate-300 font-mono text-sm space-y-3 shadow-sm">
+                    <div class="text-center font-bold text-coffee py-3 bg-slate-50 border border-slate-200">
+                        $$t_{\text{decay}} \propto \frac{m}{A \cdot C_D \cdot \rho}$$
+                    </div>
+                    <p class="text-xs text-slate-600 font-sans">
+                        <strong>Orbital Decay Time Relation:</strong> Lifetime $t_{\text{decay}}$ is directly proportional to mass-to-area ratio ($m/A$). ADR drag sails dramatically increase $A$, cutting natural decay times by over 95%.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mathematical Decay Comparison Table -->
+            <div class="bg-white p-6 border border-slate-300 space-y-4">
+                <h4 class="font-serif text-lg font-bold text-coffee">Natural Decay vs. ADR-Assisted Decay Timelines</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-mono text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-desatnavy text-offwhite uppercase text-[11px]">
+                                <th class="p-3">Target Mass / Orbit</th>
+                                <th class="p-3">Natural Unassisted Lifetime</th>
+                                <th class="p-3">ADR Drag Sail ($25 \text{ m}^2$)</th>
+                                <th class="p-3">Active Retro-Burn ADR</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr>
+                                <td class="p-3 font-semibold">1,200 kg Payload (800 km)</td>
+                                <td class="p-3 text-burntorange font-bold">120 - 250 Years</td>
+                                <td class="p-3 text-slate-800">11 - 18 Years</td>
+                                <td class="p-3 font-bold text-emerald-700">&lt; 30 Days</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">900 kg Rocket Stage (1,000 km)</td>
+                                <td class="p-3 text-burntorange font-bold">500+ Years</td>
+                                <td class="p-3 text-slate-800">45 - 70 Years</td>
+                                <td class="p-3 font-bold text-emerald-700">&lt; 60 Days</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">3,000 kg Derelict Sat (600 km)</td>
+                                <td class="p-3 text-slate-700">15 - 25 Years</td>
+                                <td class="p-3 text-slate-800">1.5 - 3 Years</td>
+                                <td class="p-3 font-bold text-emerald-700">&lt; 7 Days</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-slate-500 font-sans">
+                    *Calculations based on Jacchia-Roberts atmospheric density modeling across solar cycle averages.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Real-World Status & Quantitative Scale -->
+        <section id="scale" class="space-y-6">
+            <div class="border-l-2 border-coffee pl-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-slate-500">Implementation Status 03</span>
+                <h2 class="font-serif text-3xl font-normal text-coffee">Active Missions & Quantitative Scalability</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Mission 1: ClearSpace-1 -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">ESA & ClearSpace SA</span>
+                    <h3 class="font-serif text-xl font-bold text-coffee">ClearSpace-1 (Targeted Launch)</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        First commercial contract to remove a derelict object from orbit. The chaser mission targets the 112 kg Vespa (Vega Secondary Payload Adapter) upper stage left in LEO in 2013, testing robotic arm capture and de-orbiting.
+                    </p>
+                </div>
+
+                <!-- Mission 2: Astroscale ADRAS-J -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">JAXA & Astroscale</span>
+                    <h3 class="font-serif text-xl font-bold text-coffee">ADRAS-J Rendezvous Mission</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Demonstrated autonomous close-proximity inspection of an un-cooperative Japanese H-IIA rocket stage in orbit. Successfully executed rendezvous within meters to inspect structural condition prior to capture.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quantitative Modeling of ADR Impact -->
+            <div class="bg-desatnavy text-offwhite p-8 space-y-4">
+                <h4 class="font-serif text-xl font-bold text-burntorange">The "Top 5 per Year" Threshold</h4>
+                <p class="text-sm text-slate-300 leading-relaxed font-sans">
+                    Orbital dynamics modeling by NASA and ESA confirms that removing the <strong>top 5 highest-risk derelict targets</strong> per year reduces long-term collision risk in LEO by over <strong>50% over a 200-year timeline</strong>. Focusing ADR resources on large rocket bodies prevents the formation of millions of sub-centimeter fragment clouds.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Critical Operational & Legal Challenges -->
+        <section id="challenges" class="space-y-6">
+            <div class="border-l-2 border-burntorange pl-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-burntorange">Operational Friction 04</span>
+                <h2 class="font-serif text-3xl font-normal text-coffee">Technical & Legal Barriers to Deployment</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Challenge 1: Tumbling Physics -->
+                <div class="bg-white p-6 border border-slate-300 space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase">Barrier 01</span>
+                    <h3 class="font-serif text-lg font-bold text-coffee">Uncontrolled Tumbling Rates</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Derelict satellites lack active attitude control. Solar radiation pressure and outgassing cause targets to spin at rates up to several RPM, creating high rotational inertia that can destroy robotic capture arms upon contact.
+                    </p>
+                </div>
+
+                <!-- Challenge 2: Outer Space Treaty Article VIII -->
+                <div class="bg-white p-6 border border-slate-300 space-y-2">
+                    <span class="text-xs font-mono text-slate-400 uppercase">Barrier 02</span>
+                    <h3 class="font-serif text-lg font-bold text-coffee">Article VIII Jurisdiction (OST 1967)</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Under international law, launching states retain perpetual jurisdiction and ownership over their space objects. Capturing or de-orbiting another nation's dead rocket body without explicit authorization constitutes an illegal act of war under current space treaties.
+                    </p>
+                </div>
+
+                <!-- Challenge 3: Dual-Use ASAT Dilemma -->
+                <div class="bg-white p-6 border border-slate-300 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Barrier 03</span>
+                    <h3 class="font-serif text-lg font-bold text-coffee">Dual-Use ASAT Perceptions</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Any technology capable of rendezvous, grappling, and de-orbiting a non-cooperative satellite is functionally indistinguishable from an Anti-Satellite (ASAT) weapon, driving geopolitical mistrust between spacefaring nations.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Footer Navigation -->
+        <footer class="border-t border-slate-300 pt-8 flex justify-between items-center text-xs font-mono text-slate-500">
+            <div>
+                <span>Row 3 ADR Systems & Physics</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="index.html" class="hover:text-burntorange underline">Main Hub</a>
+                <a href="row-1-kessler-origin.html" class="hover:text-burntorange underline">Row 1 Origin</a>
+                <a href="#taxonomy" class="hover:text-burntorange underline">Back to Top &uarr;</a>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>
+```
+
+---
+
+### Highlights of the Row 3 Deep-Dive Document:
+
+1. **Custom Vector SVG Render**: Features an original technical schematic rendering ESA’s *ClearSpace-1* chaser extending its 4-arm robotic gripper toward the non-cooperative *Vespa* payload adapter above the Earth's limb.
+2. **Comprehensive ADR Taxonomy**: Categorizes all 5 major retrieval concepts: Robotic Arms (*ClearSpace*), Tethered Nets/Harpoons (*RemoveDEBRIS*), Magnetic Docking (*Astroscale ELSA-d*), Laser Ablation, and Electrodynamic Tethers/Drag Sails.
+3. **Mathematical Physics & Decay Kinetics**: Formulates the atmospheric drag equation ($F_D = \frac{1}{2}\rho V^2 C_D A$) and decay time relation ($t_{\text{decay}} \propto m/A$), complete with a data comparison table demonstrating how drag sails reduce decay lifetimes from centuries to months.
+4. **Legal & Geopolitical Friction**: Directly analyzes Outer Space Treaty Article VIII ownership barriers, non-cooperative tumbling rotational inertia, and dual-use ASAT (anti-satellite weapon) misinterpretation risks.

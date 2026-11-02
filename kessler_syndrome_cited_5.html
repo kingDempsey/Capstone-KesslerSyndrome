@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works Cited & Research References</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: '#171219',
+                        slateblue: '#778DA9',
+                        offwhite: '#F5F5F5',
+                        burntorange: '#F0803C',
+                        desatnavy: '#232B36'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-offwhite text-coffee antialiased font-sans selection:bg-burntorange selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-30 bg-[#F5F5F5]/90 backdrop-blur-md border-b border-slate-300 px-8 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 bg-burntorange rounded-full"></span>
+                <a href="index.html" class="font-serif text-xl font-bold tracking-tight text-coffee">Orbital Cascade Project</a>
+            </div>
+            <nav class="hidden lg:flex space-x-6 text-[11px] uppercase tracking-widest font-semibold text-slate-600">
+                <a href="#row-1" class="hover:text-burntorange transition">1. Kessler</a>
+                <a href="#row-2" class="hover:text-burntorange transition">2. NASA</a>
+                <a href="#row-3" class="hover:text-burntorange transition">3. ESA</a>
+                <a href="#row-4" class="hover:text-burntorange transition">4. UNOOSA</a>
+                <a href="#row-5" class="hover:text-burntorange transition">5. Dohnanyi</a>
+                <a href="#row-6" class="hover:text-burntorange transition">6. PAR Radar</a>
+                <a href="#row-7" class="hover:text-burntorange transition">7. Interview</a>
+            </nav>
+            <a href="index.html" class="text-xs uppercase tracking-wider font-semibold border border-coffee px-4 py-2 hover:bg-coffee hover:text-offwhite transition">
+                &larr; Back to Main Hub
+            </a>
+        </div>
+    </header>
+
+    <main class="w-full">
+
+        <!-- Page Title Header -->
+        <section class="py-12 bg-offwhite border-b border-slate-300 px-6">
+            <div class="max-w-4xl mx-auto space-y-3">
+                <div class="flex items-center space-x-2 text-xs uppercase tracking-widest text-slate-500 font-mono">
+                    <span>Bibliography & Attribution</span>
+                    <span>&bull;</span>
+                    <span>7-Row Reference Matrix</span>
+                </div>
+                <h1 class="font-serif text-4xl text-coffee">
+                    Works Cited & Research Sources
+                </h1>
+                <p class="text-sm text-slate-700 leading-relaxed max-w-2xl">
+                    A streamlined, 7-row index detailing every foundational paper, institutional dataset, technical radar test, and expert interview utilized across the Orbital Cascade project.
+                </p>
+            </div>
+        </section>
+
+        <!-- ROW 1: Kessler & Cour-Palais (1978) -->
+        <section id="row-1" class="py-12 bg-coffee text-offwhite border-b border-slate-800 px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-desatnavy border border-burntorange flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-burntorange font-bold">ROW 01</span>
+                        <span class="text-[10px] font-mono text-slate-300 mt-1">Portrait Frame</span>
+                    </div>
+                </div>
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Primary Literature</span>
+                    <h2 class="font-serif text-xl font-bold text-offwhite">Collision Frequency of Artificial Satellites (1978)</h2>
+                    <p class="text-xs font-mono text-slate-300">Kessler, D. J., & Cour-Palais, B. G. (1978). <em>JGR</em>, 83(A6), 2637–2646[cite: 1].</p>
+                    <p class="text-xs text-slate-400 font-sans">Provided the mathematical foundation for spatial density integrals, hypervelocity scaling (\(\Gamma = 115\)), and debris belt progression curves[cite: 2, 3, 5].</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 2: NASA Orbital Debris Program Office -->
+        <section id="row-2" class="py-12 bg-slate-200 text-coffee border-b border-slate-300 px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Institutional Data</span>
+                    <h2 class="font-serif text-xl font-bold text-coffee">NASA Orbital Debris Program Office (ODPO) Reports</h2>
+                    <p class="text-xs font-mono text-slate-600">NASA Johnson Space Center. Orbital Debris Quarterly News (ODQN).</p>
+                    <p class="text-xs text-slate-700 font-sans">Supplied historical tracking catalogs, satellite population metrics, and growth rate baselines across LEO altitude bands.</p>
+                </div>
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-white border border-coffee flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-coffee font-bold">ROW 02</span>
+                        <span class="text-[10px] font-mono text-slate-500 mt-1">NASA Logo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 3: ESA CleanSpace Initiative -->
+        <section id="row-3" class="py-12 bg-desatnavy text-offwhite border-b border-slate-800 px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-coffee border border-burntorange flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-burntorange font-bold">ROW 03</span>
+                        <span class="text-[10px] font-mono text-slate-300 mt-1">ESA Render</span>
+                    </div>
+                </div>
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Engineering & ADR</span>
+                    <h2 class="font-serif text-xl font-bold text-offwhite">European Space Agency — CleanSpace & ClearSpace-1</h2>
+                    <p class="text-xs font-mono text-slate-300">ESA. (2023–2026). Active Debris Removal Technical Documentation.</p>
+                    <p class="text-xs text-slate-400 font-sans">Informed the active debris removal taxonomies, robotic arm clamping mechanics, and magnetic capture plate specifications.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 4: UNOOSA Outer Space Treaty -->
+        <section id="row-4" class="py-12 bg-offwhite text-coffee border-b border-slate-300 px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Legal Framework</span>
+                    <h2 class="font-serif text-xl font-bold text-coffee">United Nations Office for Outer Space Affairs (UNOOSA)</h2>
+                    <p class="text-xs font-mono text-slate-600">United Nations. (1967). Outer Space Treaty (Article VIII).</p>
+                    <p class="text-xs text-slate-700 font-sans">Provided regulatory context regarding permanent state jurisdiction over space objects and international salvage limitations.</p>
+                </div>
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-slate-200 border border-coffee flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-coffee font-bold">ROW 04</span>
+                        <span class="text-[10px] font-mono text-slate-500 mt-1">UN Emblem</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 5: Dohnanyi Asteroid Fragmentation -->
+        <section id="row-5" class="py-12 bg-coffee text-offwhite border-b border-slate-800 px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-desatnavy border border-burntorange flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-burntorange font-bold">ROW 05</span>
+                        <span class="text-[10px] font-mono text-slate-300 mt-1">Source Graph</span>
+                    </div>
+                </div>
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Impact Mechanics</span>
+                    <h2 class="font-serif text-xl font-bold text-offwhite">Fragmentation and Distribution of Asteroids</h2>
+                    <p class="text-xs font-mono text-slate-300">Dohnanyi, J. S. (1971). NASA SP-267, pp. 263–295.</p>
+                    <p class="text-xs text-slate-400 font-sans">Established baseline power-law fragment distributions and hypervelocity basalt impact parameters referenced in early debris modeling.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 6: PAR Radar Test (Hendren & Anderson) -->
+        <section id="row-6" class="py-12 bg-slate-200 text-coffee border-b border-slate-300 px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Radar Sampling Data</span>
+                    <h2 class="font-serif text-xl font-bold text-coffee">Perimeter Acquisition Radar (PAR) Test Analysis</h2>
+                    <p class="text-xs font-mono text-slate-600">Hendren, J. K., & Anderson, A. (1976). SAI-77-701-HU.</p>
+                    <p class="text-xs text-slate-700 font-sans">Detailed the 1976 radar sampling test proving the Space Defense Center catalog was deficient by at least 18%[cite: 3].</p>
+                </div>
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-white border border-coffee flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-coffee font-bold">ROW 06</span>
+                        <span class="text-[10px] font-mono text-slate-500 mt-1">Radar Graphic</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 7: Expert Interview (Dr. Crassidis) -->
+        <section id="row-7" class="py-12 bg-desatnavy text-offwhite px-6">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-3 flex justify-center">
+                    <div class="w-24 h-24 bg-coffee border border-burntorange flex flex-col items-center justify-center text-center p-2">
+                        <span class="text-xs font-mono text-burntorange font-bold">ROW 07</span>
+                        <span class="text-[10px] font-mono text-slate-300 mt-1">Expert Portrait</span>
+                    </div>
+                </div>
+                <div class="md:col-span-9 space-y-2">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Expert Interview & Guidance</span>
+                    <h2 class="font-serif text-xl font-bold text-offwhite">Special Interview: Dr. John L. Crassidis</h2>
+                    <p class="text-xs font-mono text-slate-300">University at Buffalo / Space Situational Awareness Expert.</p>
+                    <p class="text-xs text-slate-400 font-sans">Provided critical expert perspective on orbital debris tracking, attitude determination, and operational challenges in space traffic management.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-coffee border-t border-slate-800 text-slate-400 py-6 px-6 text-xs font-mono">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div>&copy; Orbital Cascade Project &bull; Works Cited</div>
+            <div class="flex space-x-6">
+                <a href="index.html" class="hover:text-burntorange transition">Main Hub</a>
+                <a href="#row-1" class="hover:text-burntorange transition">Top &uarr;</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

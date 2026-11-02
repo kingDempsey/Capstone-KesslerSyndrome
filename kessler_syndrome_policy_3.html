@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Row 4: Policy, Civic Action & Public Education</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: '#171219',
+                        slateblue: '#778DA9',
+                        offwhite: '#F5F5F5',
+                        burntorange: '#F0803C',
+                        desatnavy: '#232B36'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#F5F5F5] text-coffee antialiased font-sans selection:bg-burntorange selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-30 bg-[#F5F5F5]/90 backdrop-blur-md border-b border-slate-300 px-8 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 bg-burntorange rounded-full"></span>
+                <a href="index.html" class="font-serif text-xl font-bold tracking-tight text-coffee">Orbital Cascade Project</a>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-xs uppercase tracking-widest font-semibold text-slate-600">
+                <a href="#policy" class="hover:text-burntorange transition">1. Policy & Governance</a>
+                <a href="#action" class="hover:text-burntorange transition">2. Civic & Operator Action</a>
+                <a href="#awareness" class="hover:text-burntorange transition">3. The Education Deficit</a>
+                <a href="#judges-call" class="hover:text-burntorange transition">4. Why This Project Matters</a>
+            </nav>
+            <a href="index.html" class="text-xs uppercase tracking-wider font-semibold border border-coffee px-4 py-2 hover:bg-coffee hover:text-offwhite transition">
+                &larr; Back to Main Hub
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
+
+        <!-- Header Section -->
+        <section class="border-b border-slate-300 pb-10">
+            <div class="flex items-center space-x-2 text-xs uppercase tracking-widest text-slate-500 font-mono mb-3">
+                <span>Row 4 Deep-Dive</span>
+                <span>&bull;</span>
+                <span>Governance & Outreach</span>
+                <span>&bull;</span>
+                <span>Policy & Education</span>
+            </div>
+            <h1 class="font-serif text-4xl md:text-5xl font-normal leading-tight text-coffee">
+                Policy Mandates, Civic Action, & <br>
+                <span class="italic font-light text-slate-600">The Public Education Deficit</span>
+            </h1>
+        </section>
+
+        <!-- SECTION 1: Necessary Policy Changes -->
+        <section id="policy" class="space-y-6">
+            <div class="border-l-2 border-coffee pl-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-slate-500">Framework 01</span>
+                <h2 class="font-serif text-3xl font-normal text-coffee">Policy Shifts & International Regulations</h2>
+            </div>
+
+            <p class="text-base text-slate-700 leading-relaxed">
+                Technical solutions like Active Debris Removal (ADR) cannot succeed without enforceable international policy frameworks that stop space congestion at the source.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 5-Year De-orbit Rule -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">Regulatory Upgrade</span>
+                    <h3 class="font-serif text-xl font-bold text-coffee">The 5-Year De-orbit Mandate</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Transitioning away from the legacy 25-year post-mission disposal guideline, regulatory bodies (such as the FCC) now enforce a strict <strong>5-year maximum orbital lifetime</strong> for non-operational LEO satellites.
+                    </p>
+                </div>
+
+                <!-- Treaty Reform -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">Outer Space Treaty (1967)</span>
+                    <h3 class="font-serif text-xl font-bold text-coffee">Legal Reform & Salvage Rights</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Under Article VIII of the 1967 treaty, launching states maintain perpetual ownership of objects. Establishing international "orbital salvage rights" is legally necessary so third-party servicers can clean up abandoned rocket bodies without risking geopolitical conflict.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: What Operators & Individuals Can Do -->
+        <section id="action" class="space-y-6">
+            <div class="border-l-2 border-burntorange pl-4">
+                <span class="text-xs font-mono uppercase tracking-widest text-burntorange">Action Matrix</span>
+                <h2 class="font-serif text-3xl font-normal text-coffee">What Operators & Normal Citizens Can Do</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Satellite Operators -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-slate-400 uppercase font-bold">Commercial & Defense Operators</span>
+                    <h3 class="font-serif text-xl font-bold text-coffee">Design-for-Demise (D4D)</h3>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc pl-5">
+                        <li>Equip all LEO payloads with passive drag sails or electrodynamic tethers for guaranteed reentry.</li>
+                        <li>Install standardized magnetic docking plates for rapid servicing if propulsion fails.</li>
+                        <li>Mandate passivation (venting leftover fuel and batteries) to prevent spontaneous explosions in orbit.</li>
+                    </ul>
+                </div>
+
+                <!-- Everyday Citizens -->
+                <div class="bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Civic Advocacy & Awareness</span>
+                    <h3 class="font-serif text-xl font-bold text-coffee">Civic & Public Engagement</h3>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc pl-5">
+                        <li>Advocate for space sustainability legislation and international orbital environmental standards.</li>
+                        <li>Support transparent open-source satellite tracking catalogs (e.g., Space-Track, EU SST).</li>
+                        <li>Recognize Low Earth Orbit as an endangered natural ecosystem needing environmental protection.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: The Public & Student Education Deficit -->
+        <section id="awareness" class="bg-desatnavy text-offwhite p-8 md:p-10 space-y-6 shadow-sm">
+            <div class="space-y-2">
+                <span class="text-xs font-mono text-burntorange uppercase tracking-widest font-bold">The Core Deficit</span>
+                <h2 class="font-serif text-3xl font-normal">Why Public & Student Exposure is Alarmingly Low</h2>
+            </div>
+            
+            <p class="text-sm text-slate-300 leading-relaxed font-sans max-w-3xl">
+                Despite modern civilization's total dependence on satellite infrastructure—for GPS navigation, weather forecasting, global banking, and emergency logistics—the vast majority of people have zero exposure to the mechanics of orbital space.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                <div class="border border-slate-700 p-5 bg-coffee/50 space-y-2">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">01 / Out-of-Sight Bias</span>
+                    <h3 class="font-serif text-lg font-bold">The "Infinite Vacuum" Myth</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Because space feels infinitely vast, standard science curricula rarely teach that Low Earth Orbit operates in tight altitude bands with finite capacity.
+                    </p>
+                </div>
+
+                <div class="border border-slate-700 p-5 bg-coffee/50 space-y-2">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">02 / Educational Gap</span>
+                    <h3 class="font-serif text-lg font-bold">Absence in STEM Courses</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        High school physics typically covers planetary motion or simple gravity, but excludes real-world space situational awareness, hypervelocity collision dynamics, and space environmental policy.
+                    </p>
+                </div>
+
+                <div class="border border-slate-700 p-5 bg-coffee/50 space-y-2">
+                    <span class="text-xs font-mono text-burntorange font-bold uppercase">03 / Utility Blindspot</span>
+                    <h3 class="font-serif text-lg font-bold">Invisible Infrastructure</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        People take instant weather alerts and ATM connectivity for granted without realizing these services rely on satellites flying through a growing field of high-speed shrapnel.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Judge-Focused Call-to-Action Conclusion -->
+        <section id="judges-call" class="bg-white border-2 border-burntorange p-8 md:p-10 space-y-6 shadow-md">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+                <span class="text-xs font-mono text-burntorange uppercase tracking-widest font-bold">Project Purpose & Evaluation Context</span>
+                <span class="text-xs font-mono text-slate-400">Call to Action</span>
+            </div>
+
+            <h2 class="font-serif text-3xl font-bold text-coffee">
+                Why Educational Projects Like This Are Critical
+            </h2>
+
+            <p class="text-base text-slate-700 leading-relaxed font-sans">
+                Solving Kessler Syndrome requires technical ingenuity, but preventing it starts with <strong>awareness</strong>. Without intuitive, high-density educational platforms that clearly communicate complex orbital mechanics to students and evaluators alike, space sustainability will remain an neglected issue until a catastrophic cascade occurs.
+            </p>
+
+            <div class="bg-slate-50 border-l-4 border-burntorange p-6 space-y-2">
+                <h3 class="font-serif text-xl font-bold text-coffee">A Message for Evaluators & Judges</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    This website was intentionally engineered to bridge the gap between rigorous astrophysics (Donald Kessler's mathematical paper) and accessible, editorial visual design. By turning abstract spatial density formulas and collision matrices into an interactive experience, this project serves as a template for how we can educate the next generation of engineers, policy-makers, and citizens to protect Low Earth Orbit before it's too late.
+                </p>
+            </div>
+        </section>
+
+        <!-- Page Footer -->
+        <footer class="border-t border-slate-300 pt-8 flex justify-between items-center text-xs font-mono text-slate-500">
+            <div>
+                <span>Row 4 Policy & Education Page</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="index.html" class="hover:text-burntorange underline">Main Hub</a>
+                <a href="#policy" class="hover:text-burntorange underline">Back to Top &uarr;</a>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

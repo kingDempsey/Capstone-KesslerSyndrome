@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kessler Syndrome | The Cascade Effect in Low Earth Orbit</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: '#171219',
+                        slateaccent: '#778DA9',
+                        offwhite: '#F5F5F5',
+                        brandorange: '#F0803C',
+                        greynavy: '#232B36',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+        
+        body {
+            background-color: #F5F5F5;
+            color: #171219;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+
+        /* Editorial Alternating Row Styling */
+        .row-light {
+            background-color: #F5F5F5;
+            color: #171219;
+        }
+        .row-dark {
+            background-color: #171219;
+            color: #F5F5F5;
+        }
+        .row-navy {
+            background-color: #232B36;
+            color: #F5F5F5;
+        }
+
+        /* Sharp Card Panels (No Blur/Glow Halos) */
+        .card-dark-panel {
+            background: #232B36;
+            border: 1px solid rgba(119, 141, 169, 0.3);
+            transition: border-color 0.2s ease;
+        }
+        .card-dark-panel:hover {
+            border-color: #F0803C;
+        }
+
+        .card-light-panel {
+            background: #FFFFFF;
+            border: 1px solid rgba(119, 141, 169, 0.3);
+            box-shadow: 0 4px 20px -2px rgba(23, 18, 25, 0.05);
+            transition: border-color 0.2s ease;
+        }
+        .card-light-panel:hover {
+            border-color: #F0803C;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #171219;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #778DA9;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brandorange selection:text-coffee">
+
+    <!-- HEADER: Editorial Coffee Bar -->
+    <header class="sticky top-0 z-50 bg-coffee text-offwhite border-b border-slateaccent/30">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded bg-brandorange flex items-center justify-center font-black text-coffee text-sm">
+                    KS
+                </div>
+                <span class="text-sm font-bold tracking-widest uppercase text-offwhite">KESSLER<span class="text-brandorange">.INITIATIVE</span></span>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-wider uppercase text-slateaccent">
+                <a href="#row1" class="hover:text-offwhite transition-colors">01. Origin</a>
+                <a href="#row2" class="hover:text-offwhite transition-colors">02. Impacts</a>
+                <a href="#row3" class="hover:text-offwhite transition-colors">03. ADR Solutions</a>
+                <a href="#row4" class="hover:text-offwhite transition-colors">04. Policy & Action</a>
+                <a href="#row5" class="hover:text-offwhite transition-colors">05. Perspective</a>
+            </nav>
+
+            <a href="#row3" class="px-4 py-2 rounded bg-brandorange text-coffee font-bold text-xs uppercase tracking-wider hover:bg-opacity-90 transition-all">
+                Explore Solutions
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- ==========================================
+             ROW 1: Origin & Definition (Ratio 1.0)
+             Light Background Editorial Style
+             ========================================== -->
+        <section id="row1" class="row-light py-24 border-b border-slateaccent/30">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="px-2.5 py-1 rounded bg-coffee text-offwhite text-[10px] font-bold uppercase tracking-widest">Row 01 // Overview</span>
+                    <span class="text-xs text-slateaccent font-semibold tracking-wide uppercase">Critical Density & Orbital Cascade</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <div class="lg:col-span-7">
+                        <h1 class="text-3xl sm:text-5xl font-serif font-bold text-coffee leading-tight">
+                            The Domino Effect Above Our Sky: <span class="text-brandorange italic font-normal">Kessler Syndrome</span>
+                        </h1>
+                        <p class="mt-6 text-sm text-coffee/80 leading-relaxed font-normal">
+                            First formally proposed in <strong>1978</strong> by NASA astrophysics research team members <strong>Donald J. Kessler</strong> and <strong>Burton Cour-Palais</strong>, the Kessler Syndrome describes a self-sustaining cascade of orbital debris in Low Earth Orbit (LEO). As satellite populations grow, hypervelocity collisions generate thousands of uncontrolled fragments—each acting as a lethal bullet that elevates the probability of subsequent collisions exponentially.
+                        </p>
+                        <p class="mt-4 text-sm text-coffee/80 leading-relaxed font-normal">
+                            Once debris density in a specific orbital altitude reaches a critical threshold, the collision generation rate exceeds the natural atmospheric drag decay rate. At this tipping point, humanity risks permanently severing access to near-Earth space operations for generations.
+                        </p>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-greynavy text-offwhite p-6 rounded-xl border border-slateaccent/30 space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-brandorange border-b border-slateaccent/20 pb-2">Historical Foundations (1978)</h3>
+                        <div class="space-y-3 text-xs text-slateaccent">
+                            <div class="flex justify-between items-center py-1 border-b border-slateaccent/10">
+                                <span class="text-offwhite font-medium">Proposed By</span>
+                                <span class="text-brandorange font-semibold">Donald J. Kessler & Burton Cour-Palais</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1 border-b border-slateaccent/10">
+                                <span class="text-offwhite font-medium">Primary Altitude Zone</span>
+                                <span class="text-offwhite">700 km – 1,000 km (LEO)</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1 border-b border-slateaccent/10">
+                                <span class="text-offwhite font-medium">Average Relative Speed</span>
+                                <span class="text-offwhite">~10 km/s (22,000 mph)</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1">
+                                <span class="text-offwhite font-medium">Tracked Objects (>10cm)</span>
+                                <span class="text-brandorange font-bold">~36,500+ Objects</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             ROW 2: Macro & Micro Impacts (Ratio 1.75)
+             Dark Background with 6-Card Grid
+             ========================================== -->
+        <section id="row2" class="row-dark py-40 border-b border-slateaccent/30">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="text-brandorange text-[11px] font-bold uppercase tracking-widest">Row 02 // Consequences</span>
+                        <h2 class="text-2xl sm:text-4xl font-serif font-bold text-offwhite mt-1">Macro Systems & Micro Everyday Impacts</h2>
+                    </div>
+                    <p class="text-slateaccent max-w-sm mt-3 md:mt-0 text-xs leading-relaxed">
+                        Examining the domino effect from international space agency infrastructure down to personal daily routines in today's connected modern economy.
+                    </p>
+                </div>
+
+                <!-- 6-Card Grid Layout (Kept intact as requested) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1: Global Telecom -->
+                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-brandorange text-base">
+                                    <i class="ph ph-broadcast"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-brandorange uppercase tracking-wider px-2 py-0.5 rounded bg-brandorange/10">Macro Scale</span>
+                            </div>
+                            <h3 class="text-base font-bold text-offwhite mb-2">Global Satellite Telecom Collapse</h3>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                Loss of Low Earth Orbit broadband constellations (Starlink, OneWeb) would sever rural communications and international data backhauls across the globe.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
+                            Systemic Risk: <strong class="text-offwhite font-medium">Critical Data Outages</strong>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: GPS & Financial Timing (Light Accent Card) -->
+                    <div class="bg-offwhite text-coffee p-6 rounded-xl flex flex-col justify-between border border-slateaccent/40 shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 rounded bg-greynavy flex items-center justify-center text-brandorange text-base">
+                                    <i class="ph ph-clock"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-greynavy uppercase tracking-wider px-2 py-0.5 rounded bg-greynavy/10">Micro & Daily Impact</span>
+                            </div>
+                            <h3 class="text-base font-bold text-coffee mb-2">PNT & Banking Timestamping</h3>
+                            <p class="text-coffee/80 text-xs leading-relaxed">
+                                GPS isn't just navigation—global financial networks rely on atomic clock timestamps from satellites to validate millions of credit transactions per second.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-coffee/10 text-[11px] text-coffee/70 mt-4 font-semibold">
+                            Everyday Effect: <span class="text-brandorange">ATM & Card Payment Failures</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Weather Tracking -->
+                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-slateaccent text-base">
+                                    <i class="ph ph-cloud-lightning"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-slateaccent uppercase tracking-wider px-2 py-0.5 rounded bg-slateaccent/15">Macro Scale</span>
+                            </div>
+                            <h3 class="text-base font-bold text-offwhite mb-2">Weather Forecasting Failure</h3>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                Disruption of polar-orbiting meteorological satellites degrades early warning systems for severe hurricanes, droughts, and agricultural climate modeling.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
+                            Impact: <strong class="text-offwhite font-medium">Early Warning Blindness</strong>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Aviation Navigation -->
+                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-slateaccent text-base">
+                                    <i class="ph ph-airplane"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-slateaccent uppercase tracking-wider px-2 py-0.5 rounded bg-slateaccent/15">Individual Scale</span>
+                            </div>
+                            <h3 class="text-base font-bold text-offwhite mb-2">Commercial Aviation Risks</h3>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                Aircraft rerouting and oceanic flight tracking heavily rely on satellite telemetry. Loss of positioning forces reversion to inefficient ground radar routes.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
+                            Impact: <strong class="text-offwhite font-medium">Increased Flight Travel Times</strong>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Space Exploration Halt -->
+                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-brandorange text-base">
+                                    <i class="ph ph-planet"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-brandorange uppercase tracking-wider px-2 py-0.5 rounded bg-brandorange/10">Future Outlook</span>
+                            </div>
+                            <h3 class="text-base font-bold text-offwhite mb-2">Space Exploration Lockdown</h3>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                A dense debris shell locks humanity on Earth. Trans-lunar and Martian missions become unviable due to high collision risk during ascent through LEO.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
+                            Status: <strong class="text-brandorange font-semibold">Total Orbital Entombment</strong>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Defense & Earth Observation -->
+                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-slateaccent text-base">
+                                    <i class="ph ph-shield-warning"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-slateaccent uppercase tracking-wider px-2 py-0.5 rounded bg-slateaccent/15">Macro Scale</span>
+                            </div>
+                            <h3 class="text-base font-bold text-offwhite mb-2">National Security Blindspots</h3>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                Earth observation and treaty verification satellites are rendered non-functional, destabilizing international geopolitical transparency.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
+                            Geopolitical Risk: <strong class="text-offwhite font-medium">High Tension Instability</strong>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             ROW 3: Active Debris Removal (Ratio 1.5)
+             Desaturated Grey-Navy Architectural Row
+             ========================================== -->
+        <section id="row3" class="row-navy py-32 border-b border-slateaccent/30">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-5 space-y-5">
+                        <span class="text-brandorange text-[11px] font-bold uppercase tracking-widest">Row 03 // Technical Deep-Dive</span>
+                        <h2 class="text-2xl sm:text-4xl font-serif font-bold text-offwhite leading-tight">Active Debris Removal (ADR)</h2>
+                        <p class="text-slateaccent text-xs leading-relaxed">
+                            Active Debris Removal encompasses targeted mechanical and electromagnetic technologies designed to capture derelict satellites, upper rocket stages, and fragmented debris to force controlled atmospheric reentry.
+                        </p>
+
+                        <div class="p-4 rounded-lg bg-coffee/80 border border-slateaccent/30 space-y-2">
+                            <h4 class="text-xs font-bold text-brandorange uppercase tracking-wider">Current Engineering Faults & Bottlenecks</h4>
+                            <p class="text-slateaccent text-[11px] leading-relaxed">
+                                Current ADR implementations suffer from high launch costs per targeted object ($10M–$50M+ per target), extreme tumbling capture physics, and non-cooperative orbital dynamics. Internationally, strict Article VIII Outer Space Treaty rules prohibit removing third-party debris without explicit consent from the state of origin.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Technical Solutions Grid -->
+                    <div class="lg:col-span-7 space-y-4">
+                        
+                        <!-- ADR Method 1 -->
+                        <div class="p-5 rounded-xl bg-coffee border border-slateaccent/30 hover:border-brandorange transition-all">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-sm font-bold text-offwhite">Robotic Harpoons & Nets (Astroscale & ClearSpace)</h3>
+                                <span class="text-[10px] text-brandorange font-bold uppercase bg-brandorange/10 px-2 py-0.5 rounded">Active Demonstration</span>
+                            </div>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                Missions like ClearSpace-1 employ multi-arm robotic grippers, while net capture systems deploy tethered meshes to stabilize non-cooperative space targets prior to de-orbit burn.
+                            </p>
+                        </div>
+
+                        <!-- ADR Method 2 -->
+                        <div class="p-5 rounded-xl bg-coffee border border-slateaccent/30 hover:border-brandorange transition-all">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-sm font-bold text-offwhite">Electrodynamic Tethers (EDTs)</h3>
+                                <span class="text-[10px] text-slateaccent font-bold uppercase bg-slateaccent/10 px-2 py-0.5 rounded">Propulsion-Free</span>
+                            </div>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                Unfurl conductive tethers several kilometers long. Interaction with Earth's geomagnetic field generates Lorentz drag, steadily pulling dead satellites down without propellant consumption.
+                            </p>
+                        </div>
+
+                        <!-- ADR Method 3 -->
+                        <div class="p-5 rounded-xl bg-coffee border border-slateaccent/30 hover:border-brandorange transition-all">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-sm font-bold text-offwhite">Ground & Space-Based Laser Ablation</h3>
+                                <span class="text-[10px] text-slateaccent font-bold uppercase bg-slateaccent/10 px-2 py-0.5 rounded">Future Concept</span>
+                            </div>
+                            <p class="text-slateaccent text-xs leading-relaxed">
+                                High-powered pulsed lasers heat one side of millimeter-sized debris fragments. Vaporizing surface material creates miniature thrust jets that alter orbit trajectories into decay paths.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             ROW 4: Policy, Education & Civic Action (Ratio 1.75)
+             Light Background Editorial Column
+             ========================================== -->
+        <section id="row4" class="row-light py-40 border-b border-slateaccent/30">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="text-brandorange text-[11px] font-bold uppercase tracking-widest">Row 04 // Governance & Action</span>
+                        <h2 class="text-2xl sm:text-4xl font-serif font-bold text-coffee mt-1">Policy Reform & The Educational Gap</h2>
+                    </div>
+                    <p class="text-slateaccent max-w-sm mt-3 md:mt-0 text-xs leading-relaxed">
+                        Solving the debris crisis requires binding international space law, active public engagement, and introducing orbital ecology into global curricula.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Policy Column -->
+                    <div class="card-light-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-8 h-8 rounded bg-coffee text-brandorange flex items-center justify-center font-bold mb-4">01</div>
+                            <h3 class="text-base font-bold text-coffee mb-2">International Policy Reform</h3>
+                            <p class="text-coffee/80 text-xs leading-relaxed">
+                                Transitioning from non-binding recommendations (such as the IADC guidelines) to binding international treaties. Mandatory 5-year post-mission disposal rules, strict anti-satellite (ASAT) test bans, and mandatory de-orbit drag sails on all new satellite payloads.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slateaccent/20 text-[11px] text-slateaccent font-medium">
+                            Target: Mandatory De-orbit Compliance
+                        </div>
+                    </div>
+
+                    <!-- Education Imperative Column -->
+                    <div class="card-light-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-8 h-8 rounded bg-coffee text-brandorange flex items-center justify-center font-bold mb-4">02</div>
+                            <h3 class="text-base font-bold text-coffee mb-2">Addressing the Exposure Deficit</h3>
+                            <p class="text-coffee/80 text-xs leading-relaxed">
+                                Most students and citizens treat space as an infinite, indestructible void. Educating the next generation of engineers, policymakers, and citizens on orbital environmentalism is critical to shifting public perspective before irreversible tipping points occur.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slateaccent/20 text-[11px] text-slateaccent font-medium">
+                            Focus: STEM & Orbital Sustainability
+                        </div>
+                    </div>
+
+                    <!-- Citizen Action Column -->
+                    <div class="card-light-panel p-6 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-8 h-8 rounded bg-coffee text-brandorange flex items-center justify-center font-bold mb-4">03</div>
+                            <h3 class="text-base font-bold text-coffee mb-2">Civic Advocacy & Individual Action</h3>
+                            <p class="text-coffee/80 text-xs leading-relaxed">
+                                Citizens can advocate for national space agency funding dedicated to ADR research, support commercial satellite operators committed to sustainable launch practices, and spread awareness of LEO orbital real estate as a finite shared resource.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slateaccent/20 text-[11px] text-slateaccent font-medium">
+                            Action: Support Space Sustainability Funding
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             ROW 5: Personal "About Me" & Perspective (Ratio 1.0)
+             Dark Coffee Row with Chic Editorial Footer
+             ========================================== -->
+        <section id="row5" class="row-dark py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6">
+                <div class="bg-greynavy p-8 sm:p-12 rounded-2xl border border-slateaccent/30 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="space-y-4 max-w-2xl">
+                        <span class="text-brandorange text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-coffee border border-brandorange/30">
+                            Row 05 // Author Perspective
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-offwhite">
+                            Why Kessler Syndrome Demands Our Attention
+                        </h2>
+                        <p class="text-slateaccent text-xs sm:text-sm leading-relaxed">
+                            My fascination with Kessler Syndrome stems from a profound paradox: human technology has expanded our horizons exponentially, yet our negligence in low Earth orbit threatens to lock us permanently on Earth. I created this resource to bridge the gap between technical aerospace engineering and public awareness, offering a visual, high-density platform to explore solutions for space sustainability.
+                        </p>
+                    </div>
+
+                    <div class="flex-shrink-0 text-center md:text-right">
+                        <div class="w-16 h-16 rounded-full bg-brandorange text-coffee font-black flex items-center justify-center text-xl mx-auto md:ml-auto mb-3">
+                            ME
+                        </div>
+                        <div class="text-sm font-bold text-offwhite">Space Sustainability Advocate</div>
+                        <div class="text-xs text-slateaccent mt-0.5">Orbital Dynamics & Infrastructure</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER: Chic Minimalist Editorial Layout -->
+    <footer class="bg-coffee text-slateaccent border-t border-slateaccent/20 py-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center space-x-2">
+                <div class="w-5 h-5 rounded bg-brandorange text-coffee font-bold flex items-center justify-center text-[10px]">
+                    KS
+                </div>
+                <span class="font-bold text-offwhite tracking-wider">KESSLER INITIATIVE</span>
+            </div>
+            <div>
+                &copy; 2026 Orbital Sustainability Framework. Designed with purpose.
+            </div>
+            <div class="flex space-x-6 text-slateaccent">
+                <a href="#row1" class="hover:text-offwhite transition-colors">Origin</a>
+                <a href="#row2" class="hover:text-offwhite transition-colors">Impacts</a>
+                <a href="#row3" class="hover:text-offwhite transition-colors">ADR</a>
+                <a href="#row4" class="hover:text-offwhite transition-colors">Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Tab filter stub retained for structure compatibility -->
+    <script>
+        function filterResources() {}
+    </script>
+</body>
+</html>

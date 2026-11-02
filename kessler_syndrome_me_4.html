@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Row 5: Perspective & About Me</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: '#171219',
+                        slateblue: '#778DA9',
+                        offwhite: '#F5F5F5',
+                        burntorange: '#F0803C',
+                        desatnavy: '#232B36'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-coffee text-offwhite antialiased font-sans selection:bg-burntorange selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-30 bg-coffee/90 backdrop-blur-md border-b border-slate-800 px-8 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 bg-burntorange rounded-full"></span>
+                <a href="index.html" class="font-serif text-xl font-bold tracking-tight text-offwhite">Orbital Cascade Project</a>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-xs uppercase tracking-widest font-semibold text-slate-400">
+                <a href="#band-1" class="hover:text-burntorange transition">1. Author Profile</a>
+                <a href="#band-2" class="hover:text-burntorange transition">2. Institutional Context</a>
+                <a href="#band-3" class="hover:text-burntorange transition">3. Evolution & Thanks</a>
+            </nav>
+            <a href="index.html" class="text-xs uppercase tracking-wider font-semibold border border-offwhite text-offwhite px-4 py-2 hover:bg-burntorange hover:border-burntorange transition">
+                &larr; Back to Main Hub
+            </a>
+        </div>
+    </header>
+
+    <main class="w-full">
+
+        <!-- BAND 1: Coffee Background + Left Picture Frame + Right Burnt Orange Text Box -->
+        <section id="band-1" class="py-20 bg-coffee border-b border-slate-800 px-6">
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="flex items-center space-x-2 text-xs uppercase tracking-widest text-slate-400 font-mono">
+                    <span class="text-burntorange font-bold">Band 01</span>
+                    <span>&bull;</span>
+                    <span>Personal Introduction</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <!-- Left: Picture Frame Placeholder -->
+                    <div class="md:col-span-4 flex flex-col items-center justify-center">
+                        <div class="w-full aspect-square bg-desatnavy border-2 border-burntorange flex flex-col items-center justify-center p-6 text-center relative group shadow-xl">
+                            <div class="w-12 h-12 rounded-full border border-burntorange flex items-center justify-center text-burntorange font-mono text-xs mb-3">
+                                PHOTO
+                            </div>
+                            <span class="text-xs font-mono text-offwhite font-bold">Author Portrait Frame</span>
+                            <span class="text-[11px] font-mono text-slate-400 mt-1">Replace with &lt;img src="..."&gt;</span>
+                            <div class="absolute inset-2 border border-slate-700/50 pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Burnt Orange Text Box (Placeholder Guide) -->
+                    <div class="md:col-span-8 bg-burntorange text-coffee p-8 shadow-2xl border-l-4 border-offwhite">
+                        <span class="text-xs font-mono uppercase tracking-widest font-bold opacity-80">Writing Guide &bull; Box 1</span>
+                        <h2 class="font-serif text-3xl font-bold mt-1 mb-4">About the Author</h2>
+                        <div class="space-y-3 font-sans text-sm leading-relaxed font-medium">
+                            <p class="bg-coffee/10 p-3 border-l-2 border-coffee text-coffee">
+                                <strong>What to write here:</strong> Introduce yourself—your grade level/academic standing, your core interests in science or engineering, and what drew you to creating this website project on Kessler Syndrome.
+                            </p>
+                            <p>
+                                <em>Suggested points:</em> Briefly touch upon your background, why visual engineering and astrophysics interest you, and your overarching goal in communicating complex orbital dynamics through editorial web design.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAND 2: Smoky White Background + Left Coffee Text Box + Right NASA Logo/Name -->
+        <section id="band-2" class="py-20 bg-offwhite text-coffee border-b border-slate-300 px-6">
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="flex items-center space-x-2 text-xs uppercase tracking-widest text-slate-500 font-mono">
+                    <span class="text-burntorange font-bold">Band 02</span>
+                    <span>&bull;</span>
+                    <span>Institutional Framework</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <!-- Left: Coffee Brown Text Box (Placeholder Guide) -->
+                    <div class="md:col-span-8 bg-coffee text-offwhite p-8 border-l-4 border-burntorange shadow-xl">
+                        <span class="text-xs font-mono text-burntorange uppercase tracking-widest font-bold">Writing Guide &bull; Box 2</span>
+                        <h2 class="font-serif text-3xl font-bold mt-1 mb-4 text-offwhite">Scientific Context & Institutional Research</h2>
+                        <div class="space-y-3 font-sans text-sm leading-relaxed text-slate-300">
+                            <p class="bg-slate-800/80 p-3 border-l-2 border-burntorange text-offwhite">
+                                <strong>What to write here:</strong> Summarize how institutional research—such as NASA's Orbital Debris Program Office baseline datasets—anchored your technical understanding of spatial density models and hypervelocity collision physics.
+                            </p>
+                            <p class="text-xs font-mono text-slate-400">
+                                <em>Key emphasis:</em> Highlight the bridge between formal NASA literature (like Kessler & Cour-Palais, 1978) and accessible public awareness.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right: NASA Logo / Name Graphic Box -->
+                    <div class="md:col-span-4 flex flex-col items-center justify-center">
+                        <div class="w-full aspect-video md:aspect-square bg-slate-200 border-2 border-coffee flex flex-col items-center justify-center p-6 text-center shadow-md">
+                            <span class="font-serif text-3xl font-bold tracking-widest text-coffee">NASA</span>
+                            <span class="text-xs font-mono text-slate-600 mt-2 uppercase tracking-wider font-semibold">Orbital Debris Program Office</span>
+                            <span class="text-[11px] font-mono text-slate-400 mt-3 border-t border-slate-300 pt-2">Logo / Designation Placeholder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAND 3: Reflection, Evolution & Acknowledgments -->
+        <section id="band-3" class="py-20 bg-desatnavy text-offwhite px-6">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="flex items-center space-x-2 text-xs uppercase tracking-widest text-burntorange font-mono">
+                    <span class="font-bold">Band 03</span>
+                    <span>&bull;</span>
+                    <span>Personal Evolution & Acknowledgments</span>
+                </div>
+
+                <div class="bg-coffee p-8 md:p-10 border-t-4 border-burntorange space-y-6 shadow-2xl">
+                    <h2 class="font-serif text-3xl font-normal text-offwhite">
+                        Research Evolution & Special Thanks
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Left Sub-Box: Personal Viewpoint Evolution Guide -->
+                        <div class="bg-desatnavy p-5 border border-slate-700 space-y-2">
+                            <span class="text-xs font-mono text-burntorange font-bold uppercase">Topic 01 &bull; Personal Evolution</span>
+                            <h3 class="font-serif text-lg font-bold text-offwhite">How My Perspective Shifted</h3>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p class="bg-coffee p-2 border-l-2 border-burntorange text-slate-200">
+                                    <strong>What to write here:</strong> Reflect on how your personal view of space debris evolved during this project.
+                                </p>
+                                <p>
+                                    Write about how internal factors (digging into the physics, building models) and external factors (seeing satellite launches multiply) shifted your view from seeing LEO as an abstract environment to a fragile ecosystem.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Sub-Box: Dr. Crassidis Interview & Gratitude Guide -->
+                        <div class="bg-desatnavy p-5 border border-slate-700 space-y-2">
+                            <span class="text-xs font-mono text-burntorange font-bold uppercase">Topic 02 &bull; Acknowledgments</span>
+                            <h3 class="font-serif text-lg font-bold text-offwhite">Interview & Gratitude</h3>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p class="bg-coffee p-2 border-l-2 border-burntorange text-slate-200">
+                                    <strong>What to write here:</strong> Express your gratitude to Dr. Crassidis for taking the time to interview with you.
+                                </p>
+                                <p>
+                                    Share how his expert insights introduced you to a perspective on orbital mechanics, collision risks, or engineering solutions that you had never considered before.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="bg-coffee border-t border-slate-800 pt-8 pb-12 px-6 text-xs font-mono text-slate-500">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div>
+                <span>Row 5 Perspective & About Me Page</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="index.html" class="hover:text-burntorange underline">Main Hub</a>
+                <a href="#band-1" class="hover:text-burntorange underline">Back to Top &uarr;</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
