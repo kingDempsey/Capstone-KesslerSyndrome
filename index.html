@@ -72,6 +72,68 @@
             border-color: #F0803C;
         }
 
+        .impact-card {
+            position: relative;
+            cursor: pointer;
+        }
+        .impact-card-trigger {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            border-radius: inherit;
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
+        }
+        .impact-card-trigger:focus-visible {
+            outline: 3px solid #F0803C;
+            outline-offset: 3px;
+        }
+        .impact-dialog {
+            width: min(56rem, calc(100% - 2rem));
+            max-width: none;
+            max-height: min(90vh, 60rem);
+            margin: auto;
+            padding: 0;
+            overflow-y: auto;
+            border: 0;
+            border-radius: 1rem;
+            background: #171219;
+            color: #F5F5F5;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+        }
+        .impact-dialog::backdrop {
+            background: rgba(23, 18, 25, 0.78);
+            backdrop-filter: blur(4px);
+        }
+        .impact-dialog-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+            background: #FFFFFF;
+            color: #171219;
+        }
+        .impact-dialog-picture {
+            display: flex;
+            min-height: 15rem;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #778DA9;
+            background: #F5F5F5;
+            color: #232B36;
+        }
+        @media (max-width: 640px) {
+            .impact-dialog-hero {
+                grid-template-columns: 1fr;
+            }
+            .impact-dialog-picture {
+                min-height: 11rem;
+            }
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -93,15 +155,16 @@
                 <div class="w-8 h-8 rounded bg-brandorange flex items-center justify-center font-black text-coffee text-sm">
                     KS
                 </div>
-                <span class="text-sm font-bold tracking-widest uppercase text-offwhite">KESSLER<span class="text-brandorange">.INITIATIVE</span></span>
+                <span class="text-sm font-bold tracking-widest uppercase text-offwhite">KESSLER<span class="text-brandorange">.SYNDROME </span></span>
             </div>
 
             <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-wider uppercase text-slateaccent">
                 <a href="#row1" class="hover:text-offwhite transition-colors">01. Origin</a>
                 <a href="#row2" class="hover:text-offwhite transition-colors">02. Impacts</a>
-                <a href="#row3" class="hover:text-offwhite transition-colors">03. ADR Solutions</a>
+                <a href="#row3" class="hover:text-offwhite transition-colors">03. Active Removal</a>
                 <a href="#row4" class="hover:text-offwhite transition-colors">04. Policy & Action</a>
                 <a href="#row5" class="hover:text-offwhite transition-colors">05. Perspective</a>
+                <a href="works-cited.html" class="hover:burntorange transition text-burntorange">Works Cited</a>
             </nav>
 
             <a href="#row3" class="px-4 py-2 rounded bg-brandorange text-coffee font-bold text-xs uppercase tracking-wider hover:bg-opacity-90 transition-all">
@@ -136,7 +199,7 @@
                         </p>
                     </div>
 
-                    <div class="lg:col-span-5 bg-greynavy text-offwhite p-6 rounded-xl border border-slateaccent/30 space-y-4">
+                    <a href="row-1-kessler-origin.html" class="lg:col-span-5 mt-6 block rounded-xl border border-slateaccent/30 bg-greynavy p-6 text-offwhite no-underline transition-colors hover:border-coffee focus-visible:border-coffee focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coffee">
                         <h3 class="text-xs font-bold uppercase tracking-widest text-brandorange border-b border-slateaccent/20 pb-2">Historical Foundations (1978)</h3>
                         <div class="space-y-3 text-xs text-slateaccent">
                             <div class="flex justify-between items-center py-1 border-b border-slateaccent/10">
@@ -156,7 +219,7 @@
                                 <span class="text-brandorange font-bold">~36,500+ Objects</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -182,7 +245,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Card 1: Global Telecom -->
-                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                    <article class="card-dark-panel impact-card p-6 rounded-xl flex flex-col justify-between">
+                        <button type="button" class="impact-card-trigger" data-impact="telecom" aria-label="More information: Global Satellite Telecom Collapse" aria-haspopup="dialog" aria-controls="impact-dialog"></button>
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-brandorange text-base">
@@ -198,10 +262,11 @@
                         <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
                             Systemic Risk: <strong class="text-offwhite font-medium">Critical Data Outages</strong>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Card 2: GPS & Financial Timing (Light Accent Card) -->
-                    <div class="bg-offwhite text-coffee p-6 rounded-xl flex flex-col justify-between border border-slateaccent/40 shadow-lg">
+                    <article class="impact-card bg-offwhite text-coffee p-6 rounded-xl flex flex-col justify-between border border-slateaccent/40 shadow-lg transition-colors hover:border-brandorange">
+                        <button type="button" class="impact-card-trigger" data-impact="timing" aria-label="More information: PNT and Banking Timestamping" aria-haspopup="dialog" aria-controls="impact-dialog"></button>
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-8 h-8 rounded bg-greynavy flex items-center justify-center text-brandorange text-base">
@@ -217,10 +282,11 @@
                         <div class="pt-4 border-t border-coffee/10 text-[11px] text-coffee/70 mt-4 font-semibold">
                             Everyday Effect: <span class="text-brandorange">ATM & Card Payment Failures</span>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Card 3: Weather Tracking -->
-                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                    <article class="impact-card bg-coffee text-offwhite p-6 rounded-xl flex flex-col justify-between border border-slateaccent/30 transition-colors hover:border-brandorange">
+                        <button type="button" class="impact-card-trigger" data-impact="weather" aria-label="More information: Weather Forecasting Failure" aria-haspopup="dialog" aria-controls="impact-dialog"></button>
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-slateaccent text-base">
@@ -234,12 +300,13 @@
                             </p>
                         </div>
                         <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
-                            Impact: <strong class="text-offwhite font-medium">Early Warning Blindness</strong>
+                            Impact: <strong class="text-brandorange font-medium">Early Warning Blindness</strong>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Card 4: Aviation Navigation -->
-                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                    <article class="impact-card bg-coffee text-offwhite p-6 rounded-xl flex flex-col justify-between border border-slateaccent/30 transition-colors hover:border-brandorange">
+                        <button type="button" class="impact-card-trigger" data-impact="aviation" aria-label="More information: Commercial Aviation Risks" aria-haspopup="dialog" aria-controls="impact-dialog"></button>
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-slateaccent text-base">
@@ -255,10 +322,11 @@
                         <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
                             Impact: <strong class="text-offwhite font-medium">Increased Flight Travel Times</strong>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Card 5: Space Exploration Halt -->
-                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                    <article class="card-dark-panel impact-card p-6 rounded-xl flex flex-col justify-between">
+                        <button type="button" class="impact-card-trigger" data-impact="exploration" aria-label="More information: Space Exploration Lockdown" aria-haspopup="dialog" aria-controls="impact-dialog"></button>
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-brandorange text-base">
@@ -274,10 +342,11 @@
                         <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
                             Status: <strong class="text-brandorange font-semibold">Total Orbital Entombment</strong>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Card 6: Defense & Earth Observation -->
-                    <div class="card-dark-panel p-6 rounded-xl flex flex-col justify-between">
+                    <article class="impact-card bg-offwhite text-coffee p-6 rounded-xl flex flex-col justify-between border border-slateaccent/40 shadow-lg transition-colors hover:border-brandorange">
+                        <button type="button" class="impact-card-trigger" data-impact="security" aria-label="More information: National Security Blindspots" aria-haspopup="dialog" aria-controls="impact-dialog"></button>
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="w-8 h-8 rounded bg-coffee flex items-center justify-center text-slateaccent text-base">
@@ -285,19 +354,216 @@
                                 </div>
                                 <span class="text-[10px] font-bold text-slateaccent uppercase tracking-wider px-2 py-0.5 rounded bg-slateaccent/15">Macro Scale</span>
                             </div>
-                            <h3 class="text-base font-bold text-offwhite mb-2">National Security Blindspots</h3>
+                            <h3 class="text-base font-bold text-coffee mb-2">National Security Blindspots</h3>
                             <p class="text-slateaccent text-xs leading-relaxed">
                                 Earth observation and treaty verification satellites are rendered non-functional, destabilizing international geopolitical transparency.
                             </p>
                         </div>
                         <div class="pt-4 border-t border-slateaccent/15 text-[11px] text-slateaccent mt-4">
-                            Geopolitical Risk: <strong class="text-offwhite font-medium">High Tension Instability</strong>
+                            Geopolitical Risk: <strong class="text-coffee font-medium">High Tension Instability</strong>
                         </div>
-                    </div>
+                    </article>
 
                 </div>
             </div>
         </section>
+
+        <dialog id="impact-dialog" class="impact-dialog" aria-label="Impact details">
+            <form method="dialog" class="absolute right-4 top-4 z-10">
+                <button type="submit" class="rounded-lg border border-coffee/20 bg-white px-4 py-2 text-xs font-bold text-coffee shadow hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brandorange">
+                    Close <span aria-hidden="true">&times;</span>
+                </button>
+            </form>
+            <div id="impact-dialog-content"></div>
+        </dialog>
+
+        <template id="impact-telecom">
+            <header class="impact-dialog-hero">
+                <div class="impact-dialog-picture">
+                    <div class="text-center">
+                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
+                        <p class="mt-1 text-[11px]">Satellite communications network</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Macro-scale impact</span>
+                    <h2 class="mt-2 font-serif text-2xl font-bold text-coffee">Global Satellite Telecom Collapse</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-coffee/75">A closer look at how orbital debris could disrupt satellite broadband and the services that depend on it.</p>
+                </div>
+            </header>
+            <div class="space-y-8 bg-coffee p-6 text-offwhite sm:p-10">
+                <section class="border-l-2 border-brandorange pl-4">
+                    <h3 class="font-serif text-lg font-bold">How the connection works</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Low Earth orbit broadband systems use fleets of satellites to relay data between user terminals, other spacecraft, and ground gateways. Their value comes from coordinating many spacecraft and links rather than relying on a single satellite.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">What a disruption could affect</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Collisions or avoidance maneuvers could reduce network capacity and coverage. Communities and operations with few terrestrial alternatives could feel the effects most, while ordinary internet service would vary by region and available backup infrastructure.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Why resilience matters</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Redundant routes, responsible constellation operations, debris tracking, and end-of-life disposal all help reduce the chance that one orbital disruption becomes a prolonged service outage.</p>
+                </section>
+            </div>
+        </template>
+
+        <template id="impact-timing">
+            <header class="impact-dialog-hero">
+                <div class="impact-dialog-picture">
+                    <div class="text-center">
+                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
+                        <p class="mt-1 text-[11px]">Satellite timing and financial networks</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Everyday infrastructure</span>
+                    <h2 class="mt-2 font-serif text-2xl font-bold text-coffee">PNT &amp; Banking Timestamping</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-coffee/75">Satellite navigation provides a widely used source of precise time for systems that coordinate communications, finance, and other infrastructure.</p>
+                </div>
+            </header>
+            <div class="space-y-8 bg-coffee p-6 text-offwhite sm:p-10">
+                <section class="border-l-2 border-brandorange pl-4">
+                    <h3 class="font-serif text-lg font-bold">Why timing is important</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Many Global Navigation Satellite Systems (GNSS) broadcast precise time alongside position. Network operators can use those signals to synchronize equipment and accurately order events across geographically separated systems.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Potential downstream effects</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">A loss or degradation of satellite timing could complicate synchronization for some financial, telecommunications, and power-grid systems. Impacts depend on local backup clocks, holdover capacity, and recovery procedures; a satellite outage would not automatically stop every transaction.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Building time resilience</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Independent timing sources, resilient receivers, and tested holdover systems can reduce reliance on any single signal source. The same principle applies to positioning and navigation.</p>
+                    <a href="row-3-adr-technology.html#ablation" class="mt-4 inline-flex text-sm font-bold text-brandorange underline underline-offset-4 hover:text-orange-300">Explore the Ablation ADR system</a>
+                </section>
+            </div>
+        </template>
+
+        <template id="impact-weather">
+            <header class="impact-dialog-hero">
+                <div class="impact-dialog-picture">
+                    <div class="text-center">
+                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
+                        <p class="mt-1 text-[11px]">Weather satellite imagery</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Environmental monitoring</span>
+                    <h2 class="mt-2 font-serif text-2xl font-bold text-coffee">Weather Forecasting Failure</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-coffee/75">Weather satellites provide observations that help forecasters track storms and build a picture of changing conditions around the globe.</p>
+                </div>
+            </header>
+            <div class="space-y-8 bg-coffee p-6 text-offwhite sm:p-10">
+                <section class="border-l-2 border-brandorange pl-4">
+                    <h3 class="font-serif text-lg font-bold">What satellites contribute</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Polar-orbiting instruments repeatedly observe different parts of Earth, measuring cloud patterns and atmospheric properties. These observations supplement ground stations, weather balloons, aircraft, and other sources.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">How debris could affect forecasts</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Debris hazards can threaten spacecraft or require avoidance maneuvers. Losing observations or access to particular orbits could leave gaps in the data used for forecasting, with consequences that depend on which instruments and backup systems remain available.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Why continuity matters</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Long-term, consistent measurements support storm monitoring and climate records. Protecting satellites and maintaining complementary observation systems helps keep those records useful.</p>
+                    <a href="row-3-adr-technology.html#edts" class="mt-4 inline-flex text-sm font-bold text-brandorange underline underline-offset-4 hover:text-orange-300">Explore the EDTs ADR system</a>
+                </section>
+            </div>
+        </template>
+
+        <template id="impact-aviation">
+            <header class="impact-dialog-hero">
+                <div class="impact-dialog-picture">
+                    <div class="text-center">
+                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
+                        <p class="mt-1 text-[11px]">Aircraft navigation over ocean</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Transportation</span>
+                    <h2 class="mt-2 font-serif text-2xl font-bold text-coffee">Commercial Aviation Risks</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-coffee/75">Aviation uses satellite navigation and communications alongside ground-based systems to support routing and operations.</p>
+                </div>
+            </header>
+            <div class="space-y-8 bg-coffee p-6 text-offwhite sm:p-10">
+                <section class="border-l-2 border-brandorange pl-4">
+                    <h3 class="font-serif text-lg font-bold">Where satellites fit in</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Satellite navigation helps aircraft determine position, while satellite communications can support contact over remote areas. These capabilities complement ground-based navigation aids, radar coverage, and established air-traffic procedures.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Possible operational changes</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">If satellite services became less dependable, some routes could require additional separation, alternative procedures, or rerouting. The effect would vary by aircraft equipment, airspace, and the ground infrastructure available.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Safety through alternatives</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Aviation is designed around layered procedures and backup capabilities. Maintaining those alternatives helps operators adapt safely when a navigation or communication service is degraded.</p>
+                </section>
+            </div>
+        </template>
+
+        <template id="impact-exploration">
+            <header class="impact-dialog-hero">
+                <div class="impact-dialog-picture">
+                    <div class="text-center">
+                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
+                        <p class="mt-1 text-[11px]">Spacecraft traveling through Earth orbit</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Future missions</span>
+                    <h2 class="mt-2 font-serif text-2xl font-bold text-coffee">Space Exploration Lockdown</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-coffee/75">A crowded orbital environment can make access to space more hazardous and more demanding to manage.</p>
+                </div>
+            </header>
+            <div class="space-y-8 bg-coffee p-6 text-offwhite sm:p-10">
+                <section class="border-l-2 border-brandorange pl-4">
+                    <h3 class="font-serif text-lg font-bold">Why debris matters to missions</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Even small fragments can pose a risk at orbital velocities. Spacecraft operators monitor conjunctions and may maneuver to avoid close approaches, which uses planning time and can consume propellant.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Effects on future exploration</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">A more congested environment could increase mission design, launch, and operations constraints. It does not mean all launches would stop, but persistent growth in debris could make reliable access more difficult and costly.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">Keeping pathways usable</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Mitigation, tracking, careful maneuver coordination, and removal of high-risk objects all contribute to preserving safe orbital pathways for scientific and crewed missions.</p>
+                </section>
+            </div>
+        </template>
+
+        <template id="impact-security">
+            <header class="impact-dialog-hero">
+                <div class="impact-dialog-picture">
+                    <div class="text-center">
+                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
+                        <p class="mt-1 text-[11px]">Earth-observation satellite</p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Global stability</span>
+                    <h2 class="mt-2 font-serif text-2xl font-bold text-coffee">National Security Blindspots</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-coffee/75">Earth-observation and monitoring satellites contribute information used for environmental awareness, disaster response, and international transparency.</p>
+                </div>
+            </header>
+            <div class="space-y-8 bg-coffee p-6 text-offwhite sm:p-10">
+                <section class="border-l-2 border-brandorange pl-4">
+                    <h3 class="font-serif text-lg font-bold">The role of orbital observation</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Space-based sensors can observe large and remote areas repeatedly. Governments and other organizations use satellite data for tasks ranging from monitoring natural hazards to checking changes on the ground.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">When coverage is interrupted</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Debris-related damage or outages could reduce the frequency or quality of some observations. Gaps may make it harder to independently verify events, though the impact depends on the sensor, mission, and other information sources available.</p>
+                </section>
+                <section class="border-l-2 border-slateaccent/50 pl-4">
+                    <h3 class="font-serif text-lg font-bold">The value of dependable data</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-slateaccent">Redundant missions, transparent data-sharing practices, and sustainable orbital operations help preserve a consistent record and reduce dependence on any single satellite or provider.</p>
+                </section>
+            </div>
+        </template>
 
 
         <!-- ==========================================
@@ -306,16 +572,16 @@
              ========================================== -->
         <section id="row3" class="row-navy py-32 border-b border-slateaccent/30">
             <div class="max-w-6xl mx-auto px-4 sm:px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
                     
-                    <div class="lg:col-span-5 space-y-5">
+                    <div class="lg:col-span-5 flex flex-col justify-between space-y-5">
                         <span class="text-brandorange text-[11px] font-bold uppercase tracking-widest">Row 03 // Technical Deep-Dive</span>
                         <h2 class="text-2xl sm:text-4xl font-serif font-bold text-offwhite leading-tight">Active Debris Removal (ADR)</h2>
                         <p class="text-slateaccent text-xs leading-relaxed">
                             Active Debris Removal encompasses targeted mechanical and electromagnetic technologies designed to capture derelict satellites, upper rocket stages, and fragmented debris to force controlled atmospheric reentry.
                         </p>
 
-                        <div class="p-4 rounded-lg bg-coffee/80 border border-slateaccent/30 space-y-2">
+                        <div class="p-4 rounded-lg bg-coffee border border-slateaccent/30 space-y-2">
                             <h4 class="text-xs font-bold text-brandorange uppercase tracking-wider">Current Engineering Faults & Bottlenecks</h4>
                             <p class="text-slateaccent text-[11px] leading-relaxed">
                                 Current ADR implementations suffer from high launch costs per targeted object ($10M–$50M+ per target), extreme tumbling capture physics, and non-cooperative orbital dynamics. Internationally, strict Article VIII Outer Space Treaty rules prohibit removing third-party debris without explicit consent from the state of origin.
@@ -324,10 +590,11 @@
                     </div>
 
                     <!-- Technical Solutions Grid -->
-                    <div class="lg:col-span-7 space-y-4">
+                    <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
                         
                         <!-- ADR Method 1 -->
                         <div class="p-5 rounded-xl bg-coffee border border-slateaccent/30 hover:border-brandorange transition-all">
+                            <a href="row-3-adr-technology.html#taxonomy" class="no-underline hover:no-underline">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="text-sm font-bold text-offwhite">Robotic Harpoons & Nets (Astroscale & ClearSpace)</h3>
                                 <span class="text-[10px] text-brandorange font-bold uppercase bg-brandorange/10 px-2 py-0.5 rounded">Active Demonstration</span>
@@ -335,10 +602,11 @@
                             <p class="text-slateaccent text-xs leading-relaxed">
                                 Missions like ClearSpace-1 employ multi-arm robotic grippers, while net capture systems deploy tethered meshes to stabilize non-cooperative space targets prior to de-orbit burn.
                             </p>
+                            </a>
                         </div>
 
                         <!-- ADR Method 2 -->
-                        <div class="p-5 rounded-xl bg-coffee border border-slateaccent/30 hover:border-brandorange transition-all">
+                        <a href="row-3-adr-technology.html#edts" class="block p-5 rounded-xl bg-coffee border border-slateaccent/30 no-underline hover:border-brandorange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brandorange transition-all">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="text-sm font-bold text-offwhite">Electrodynamic Tethers (EDTs)</h3>
                                 <span class="text-[10px] text-slateaccent font-bold uppercase bg-slateaccent/10 px-2 py-0.5 rounded">Propulsion-Free</span>
@@ -346,10 +614,10 @@
                             <p class="text-slateaccent text-xs leading-relaxed">
                                 Unfurl conductive tethers several kilometers long. Interaction with Earth's geomagnetic field generates Lorentz drag, steadily pulling dead satellites down without propellant consumption.
                             </p>
-                        </div>
+                        </a>
 
                         <!-- ADR Method 3 -->
-                        <div class="p-5 rounded-xl bg-coffee border border-slateaccent/30 hover:border-brandorange transition-all">
+                        <a href="row-3-adr-technology.html#ablation" class="block p-5 rounded-xl bg-coffee border border-slateaccent/30 no-underline hover:border-brandorange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brandorange transition-all">
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="text-sm font-bold text-offwhite">Ground & Space-Based Laser Ablation</h3>
                                 <span class="text-[10px] text-slateaccent font-bold uppercase bg-slateaccent/10 px-2 py-0.5 rounded">Future Concept</span>
@@ -357,7 +625,7 @@
                             <p class="text-slateaccent text-xs leading-relaxed">
                                 High-powered pulsed lasers heat one side of millimeter-sized debris fragments. Vaporizing surface material creates miniature thrust jets that alter orbit trajectories into decay paths.
                             </p>
-                        </div>
+                        </a>
 
                     </div>
                 </div>
@@ -384,7 +652,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
                     <!-- Policy Column -->
-                    <div class="card-light-panel p-6 rounded-xl flex flex-col justify-between">
+                    <a href="row-4-policy-education.html" class="card-light-panel p-6 rounded-xl flex flex-col justify-between no-underline">
                         <div>
                             <div class="w-8 h-8 rounded bg-coffee text-brandorange flex items-center justify-center font-bold mb-4">01</div>
                             <h3 class="text-base font-bold text-coffee mb-2">International Policy Reform</h3>
@@ -395,10 +663,10 @@
                         <div class="mt-6 pt-4 border-t border-slateaccent/20 text-[11px] text-slateaccent font-medium">
                             Target: Mandatory De-orbit Compliance
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Education Imperative Column -->
-                    <div class="card-light-panel p-6 rounded-xl flex flex-col justify-between">
+                    <a href="row-4-policy-education.html" class="card-light-panel p-6 rounded-xl flex flex-col justify-between no-underline">
                         <div>
                             <div class="w-8 h-8 rounded bg-coffee text-brandorange flex items-center justify-center font-bold mb-4">02</div>
                             <h3 class="text-base font-bold text-coffee mb-2">Addressing the Exposure Deficit</h3>
@@ -409,10 +677,10 @@
                         <div class="mt-6 pt-4 border-t border-slateaccent/20 text-[11px] text-slateaccent font-medium">
                             Focus: STEM & Orbital Sustainability
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Citizen Action Column -->
-                    <div class="card-light-panel p-6 rounded-xl flex flex-col justify-between">
+                    <a href="row-4-policy-education.html" class="card-light-panel p-6 rounded-xl flex flex-col justify-between no-underline">
                         <div>
                             <div class="w-8 h-8 rounded bg-coffee text-brandorange flex items-center justify-center font-bold mb-4">03</div>
                             <h3 class="text-base font-bold text-coffee mb-2">Civic Advocacy & Individual Action</h3>
@@ -423,7 +691,7 @@
                         <div class="mt-6 pt-4 border-t border-slateaccent/20 text-[11px] text-slateaccent font-medium">
                             Action: Support Space Sustainability Funding
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             </div>
@@ -436,13 +704,13 @@
              ========================================== -->
         <section id="row5" class="row-dark py-24">
             <div class="max-w-6xl mx-auto px-4 sm:px-6">
-                <div class="bg-greynavy p-8 sm:p-12 rounded-2xl border border-slateaccent/30 flex flex-col md:flex-row items-center justify-between gap-8">
+                <a href="row-5-perspective-about.html" class="card-dark-panel block bg-greynavy p-8 sm:p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brandorange">
                     <div class="space-y-4 max-w-2xl">
                         <span class="text-brandorange text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-coffee border border-brandorange/30">
                             Row 05 // Author Perspective
                         </span>
                         <h2 class="text-2xl sm:text-3xl font-serif font-bold text-offwhite">
-                            Why Kessler Syndrome Demands Our Attention
+                            Why Does Kessler Syndrome Demand our Attention?
                         </h2>
                         <p class="text-slateaccent text-xs sm:text-sm leading-relaxed">
                             My fascination with Kessler Syndrome stems from a profound paradox: human technology has expanded our horizons exponentially, yet our negligence in low Earth orbit threatens to lock us permanently on Earth. I created this resource to bridge the gap between technical aerospace engineering and public awareness, offering a visual, high-density platform to explore solutions for space sustainability.
@@ -456,7 +724,7 @@
                         <div class="text-sm font-bold text-offwhite">Space Sustainability Advocate</div>
                         <div class="text-xs text-slateaccent mt-0.5">Orbital Dynamics & Infrastructure</div>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -469,7 +737,7 @@
                 <div class="w-5 h-5 rounded bg-brandorange text-coffee font-bold flex items-center justify-center text-[10px]">
                     KS
                 </div>
-                <span class="font-bold text-offwhite tracking-wider">KESSLER INITIATIVE</span>
+                <span class="font-bold text-offwhite tracking-wider">KESSLER SYNDROME</span>
             </div>
             <div>
                 &copy; 2026 Orbital Sustainability Framework. Designed with purpose.
@@ -483,9 +751,35 @@
         </div>
     </footer>
 
-    <!-- Tab filter stub retained for structure compatibility -->
     <script>
         function filterResources() {}
+
+        const impactDialog = document.getElementById('impact-dialog');
+        const impactDialogContent = document.getElementById('impact-dialog-content');
+        const rowTwo = document.getElementById('row2');
+
+        rowTwo.addEventListener('click', (event) => {
+            const trigger = event.target instanceof Element
+                ? event.target.closest('.impact-card-trigger')
+                : null;
+            if (!trigger) return;
+
+            const impactId = trigger.dataset.impact;
+            const template = document.getElementById(`impact-${impactId}`);
+            if (!(template instanceof HTMLTemplateElement)) {
+                console.error(`Missing impact detail template for "${impactId}".`);
+                return;
+            }
+
+            impactDialogContent.replaceChildren(template.content.cloneNode(true));
+            impactDialog.setAttribute('aria-labelledby', `impact-title-${impactId}`);
+            impactDialog.showModal();
+        });
+
+        impactDialog.addEventListener('click', (event) => {
+            if (event.target === impactDialog) impactDialog.close();
+        });
     </script>
+    <script src="main.js" defer></script>
 </body>
 </html>

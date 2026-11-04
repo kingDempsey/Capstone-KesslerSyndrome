@@ -30,6 +30,16 @@
     <!-- MathJax for rendering physics formulas -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .taxonomy-card {
+            scroll-margin-top: 6rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .taxonomy-card:target {
+            border-color: #F0803C;
+            box-shadow: 0 0 0 3px rgba(240, 128, 60, 0.35);
+        }
+    </style>
 </head>
 <body class="bg-[#F5F5F5] text-coffee antialiased font-sans selection:bg-burntorange selection:text-white">
 
@@ -75,7 +85,7 @@
             </h1>
             <div class="flex flex-wrap items-center justify-between gap-4 pt-4 text-sm text-slate-600 font-mono border-t border-slate-200">
                 <div>
-                    <span class="text-slate-400">Core Objective:</span> Halt $S^2$ Spatial Density Multiplier
+                    <span class="text-slate-400">Core Objective:</span> Halt S<sup>2</sup> Spatial Density Multiplier
                 </div>
                 <div>
                     <span class="text-slate-400">Target Altitude Band:</span> 700 km – 1000 km LEO
@@ -223,8 +233,8 @@
                 </div>
 
                 <!-- System 3: Contactless Deflection -->
-                <div class="bg-white p-6 border border-slate-300 space-y-3">
-                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category C &bull; Remote Impulse</span>
+                <div id="ablation" class="taxonomy-card bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category C &bull; Remote Impulse &bull; Ablation</span>
                     <h4 class="font-serif text-xl font-bold text-coffee">Laser Ablation & Ion Beam Shepherds</h4>
                     <p class="text-xs text-slate-600 leading-relaxed">
                         Contactless methods fire high-repetition pulsed lasers or concentrated plasma ion beams at small debris fragments. Surface vaporization generates microscopic plasma jet reactions, imparting momentum changes without physical contact.
@@ -236,11 +246,11 @@
                 </div>
 
                 <!-- System 4: Electrodynamic Tethers & Drag Sails -->
-                <div class="bg-white p-6 border border-slate-300 space-y-3">
-                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category D &bull; Passive Drag Enhancers</span>
+                <div id="edts" class="taxonomy-card bg-white p-6 border border-slate-300 space-y-3">
+                    <span class="text-xs font-mono text-burntorange uppercase font-bold">Category D &bull; Passive Drag Enhancers &bull; EDTs</span>
                     <h4 class="font-serif text-xl font-bold text-coffee">Electrodynamic Tethers (EDT) & Drag Sails</h4>
                     <p class="text-xs text-slate-600 leading-relaxed">
-                        Passive drag sails deploy large thin-film membranes ($15 \text{ m}^2 - 50 \text{ m}^2$) at end-of-life to increase atmospheric drag area. Conductive EDTs interact with Earth's magnetic field to generate Lorentz deceleration forces without propellant.
+                        Passive drag sails deploy large thin-film membranes \(15 \text{ m}^2 - 50 \text{ m}^2\) at end-of-life to increase atmospheric drag area. Conductive EDTs interact with Earth's magnetic field to generate Lorentz deceleration forces without propellant.
                     </p>
                     <div class="bg-slate-50 p-3 text-[11px] font-mono text-slate-500 border border-slate-200">
                         <strong>Advantage:</strong> Zero fuel required for orbital decay.<br>
@@ -259,7 +269,7 @@
             </div>
 
             <p class="text-base leading-relaxed text-slate-700">
-                The physics of satellite de-orbiting relies on aerodynamic drag force ($F_D$) within Earth's thermosphere and exosphere. At altitudes below 1,000 km, atmospheric density ($\rho$), while extremely low, exerts continuous resistive force against orbital velocity ($V$).
+                The physics of satellite de-orbiting relies on aerodynamic drag force \(F_D\) within Earth's thermosphere and exosphere. At altitudes below 1,000 km, atmospheric density \(\rho\), while extremely low, exerts continuous resistive force against orbital velocity \(V\).
             </p>
 
             <!-- Drag & Decay Formula Cards -->
@@ -269,7 +279,7 @@
                         $$F_D = \frac{1}{2} \, \rho \, V^2 \, C_D \, A$$
                     </div>
                     <p class="text-xs text-slate-600 font-sans">
-                        <strong>Atmospheric Drag Equation:</strong> Where $F_D$ is drag force, $\rho$ is atmospheric density, $V$ is orbital velocity ($\sim 7.5 \text{ km/s}$), $C_D$ is drag coefficient ($\approx 2.2$), and $A$ is cross-sectional area.
+                        <strong>Atmospheric Drag Equation:</strong> Where \(F_D\) is drag force, \( \rho \) is atmospheric density, \( V \) is orbital velocity \(\sim 7.5 \text{ km/s}\), \( C_D \) is drag coefficient \(\approx 2.2\), and \( A \) is cross-sectional area.
                     </p>
                 </div>
 
@@ -278,7 +288,7 @@
                         $$t_{\text{decay}} \propto \frac{m}{A \cdot C_D \cdot \rho}$$
                     </div>
                     <p class="text-xs text-slate-600 font-sans">
-                        <strong>Orbital Decay Time Relation:</strong> Lifetime $t_{\text{decay}}$ is directly proportional to mass-to-area ratio ($m/A$). ADR drag sails dramatically increase $A$, cutting natural decay times by over 95%.
+                        <strong>Orbital Decay Time Relation:</strong> Lifetime \(t_{\text{decay}}\) is directly proportional to mass-to-area ratio (\(m/A\)). ADR drag sails dramatically increase \(A\), cutting natural decay times by over 95%.
                     </p>
                 </div>
             </div>
@@ -289,10 +299,10 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left font-mono text-xs border-collapse">
                         <thead>
-                            <tr class="bg-desatnavy text-offwhite uppercase text-[11px]">
+                            <tr class="bg-desatnavy text-offwhite uppercase text-[11.1px]">
                                 <th class="p-3">Target Mass / Orbit</th>
                                 <th class="p-3">Natural Unassisted Lifetime</th>
-                                <th class="p-3">ADR Drag Sail ($25 \text{ m}^2$)</th>
+                                <th class="p-3">ADR Drag Sail 25m<sup>2</sup></th>
                                 <th class="p-3">Active Retro-Burn ADR</th>
                             </tr>
                         </thead>
@@ -413,13 +423,3 @@
 
 </body>
 </html>
-```
-
----
-
-### Highlights of the Row 3 Deep-Dive Document:
-
-1. **Custom Vector SVG Render**: Features an original technical schematic rendering ESA’s *ClearSpace-1* chaser extending its 4-arm robotic gripper toward the non-cooperative *Vespa* payload adapter above the Earth's limb.
-2. **Comprehensive ADR Taxonomy**: Categorizes all 5 major retrieval concepts: Robotic Arms (*ClearSpace*), Tethered Nets/Harpoons (*RemoveDEBRIS*), Magnetic Docking (*Astroscale ELSA-d*), Laser Ablation, and Electrodynamic Tethers/Drag Sails.
-3. **Mathematical Physics & Decay Kinetics**: Formulates the atmospheric drag equation ($F_D = \frac{1}{2}\rho V^2 C_D A$) and decay time relation ($t_{\text{decay}} \propto m/A$), complete with a data comparison table demonstrating how drag sails reduce decay lifetimes from centuries to months.
-4. **Legal & Geopolitical Friction**: Directly analyzes Outer Space Treaty Article VIII ownership barriers, non-cooperative tumbling rotational inertia, and dual-use ASAT (anti-satellite weapon) misinterpretation risks.
