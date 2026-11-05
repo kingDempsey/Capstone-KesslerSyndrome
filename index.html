@@ -117,20 +117,25 @@
             color: #171219;
         }
         .impact-dialog-picture {
-            display: flex;
+            height: 15rem;
             min-height: 15rem;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #778DA9;
+            overflow: hidden;
             background: #F5F5F5;
-            color: #232B36;
+        }
+        .impact-dialog-picture img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         @media (max-width: 640px) {
             .impact-dialog-hero {
                 grid-template-columns: 1fr;
             }
             .impact-dialog-picture {
-                min-height: 11rem;
+                height: auto;
+                min-height: 0;
+                aspect-ratio: 16 / 9;
             }
         }
 
@@ -380,11 +385,7 @@
         <template id="impact-telecom">
             <header class="impact-dialog-hero">
                 <div class="impact-dialog-picture">
-                    <div class="text-center">
-                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
-                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
-                        <p class="mt-1 text-[11px]">Satellite communications network</p>
-                    </div>
+                    <img src="assets/row2-starlink.jpg" alt="A line of Starlink satellites crossing the night sky">
                 </div>
                 <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Macro-scale impact</span>
@@ -411,11 +412,7 @@
         <template id="impact-timing">
             <header class="impact-dialog-hero">
                 <div class="impact-dialog-picture">
-                    <div class="text-center">
-                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
-                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
-                        <p class="mt-1 text-[11px]">Satellite timing and financial networks</p>
-                    </div>
+                    <img src="assets/row2-universal-time.webp" alt="The International Space Station in orbit">
                 </div>
                 <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Everyday infrastructure</span>
@@ -443,11 +440,7 @@
         <template id="impact-weather">
             <header class="impact-dialog-hero">
                 <div class="impact-dialog-picture">
-                    <div class="text-center">
-                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
-                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
-                        <p class="mt-1 text-[11px]">Weather satellite imagery</p>
-                    </div>
+                    <img src="assets/row2-weather-satellite.jpg" alt="A weather satellite observing Earth">
                 </div>
                 <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Environmental monitoring</span>
@@ -475,11 +468,7 @@
         <template id="impact-aviation">
             <header class="impact-dialog-hero">
                 <div class="impact-dialog-picture">
-                    <div class="text-center">
-                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
-                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
-                        <p class="mt-1 text-[11px]">Aircraft navigation over ocean</p>
-                    </div>
+                    <img src="assets/row2-aircraft-navigation.jpg" alt="Aircraft navigation instruments showing position and route">
                 </div>
                 <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Transportation</span>
@@ -506,11 +495,7 @@
         <template id="impact-exploration">
             <header class="impact-dialog-hero">
                 <div class="impact-dialog-picture">
-                    <div class="text-center">
-                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
-                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
-                        <p class="mt-1 text-[11px]">Spacecraft traveling through Earth orbit</p>
-                    </div>
+                    <img src="assets/row2-iss.jpg" alt="The International Space Station orbiting above Earth">
                 </div>
                 <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Future missions</span>
@@ -537,11 +522,7 @@
         <template id="impact-security">
             <header class="impact-dialog-hero">
                 <div class="impact-dialog-picture">
-                    <div class="text-center">
-                        <i class="ph ph-image text-4xl" aria-hidden="true"></i>
-                        <p class="mt-2 text-xs font-bold uppercase tracking-wider">Picture placeholder</p>
-                        <p class="mt-1 text-[11px]">Earth-observation satellite</p>
-                    </div>
+                    <img src="assets/row2-earth-observation.jpg" alt="An Earth-observation satellite above Earth">
                 </div>
                 <div class="flex flex-col justify-center p-6 pr-24 sm:p-8 sm:pr-24">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-brandorange">Row 02 / Global stability</span>

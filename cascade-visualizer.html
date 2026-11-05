@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kessler Syndrome & Cascade Visualizer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Chart.js CDN for Cascade Risk / Debris Metrics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for Telemetry Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #030712;
+            font-family: 'Inter', sans-serif;
+            color: #f3f4f6;
+            user-select: none;
+        }
+        
+        .font-mono-tech {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        /* Glassmorphism Sci-Fi Panels */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(56, 189, 248, 0.05);
+        }
+        
+        .glass-panel-alert {
+            background: rgba(30, 10, 20, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.2);
+        }
+
+        /* Sci-fi Scanline effect overlay */
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar for Controls */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.4);
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.8);
+        }
+
+        /* Glowing Accent Text & Borders */
+        .glow-cyan { text-shadow: 0 0 8px rgba(56, 189, 248, 0.6); }
+        .glow-rose { text-shadow: 0 0 8px rgba(244, 63, 94, 0.7); }
+        .glow-amber { text-shadow: 0 0 8px rgba(245, 158, 11, 0.7); }
+        
+        .border-glow-cyan { box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        .border-glow-rose { box-shadow: 0 0 10px rgba(244, 63, 94, 0.4); }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 4px;
+            height: 6px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 8px #38bdf8;
+            transition: all 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #7dd3fc;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen overflow-hidden relative">
+
+    <!-- 3D Canvas Container -->
+    <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
+
+    <!-- Scanline Overlay -->
+    <div class="scanlines absolute inset-0 z-10"></div>
+
+    <!-- UI Overlay Header -->
+    <header class="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center pointer-events-none">
+        <div class="flex items-center space-x-3 pointer-events-auto">
+            <div class="w-10 h-10 rounded-lg bg-sky-950/80 border border-sky-400/40 flex items-center justify-center text-sky-400 text-xl font-bold shadow-lg shadow-sky-950/50">
+                <i class="fa-solid fa-satellite-dish animate-pulse"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-400 uppercase font-mono-tech">
+                    Orbital Risk Simulator
+                </h1>
+                <p class="text-xs text-sky-400/70 font-mono-tech tracking-widest">KESSLER SYNDROME CASCADE TELEMETRY</p>
+            </div>
+        </div>
+
+        <!-- Simulation Status Pill -->
+        <div class="pointer-events-auto flex items-center space-x-4">
+            <div id="cascade-status-badge" class="px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center space-x-2 border border-emerald-500/30 bg-emerald-950/50 text-emerald-400 shadow-md">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span id="status-text">SYSTEM STABLE - LOW DENSITY</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Left HUD: Telemetry Metrics -->
+    <aside class="absolute top-20 left-4 z-20 w-80 space-y-3 pointer-events-auto">
+        <!-- Live Counters Card -->
+        <div class="glass-panel rounded-xl p-4 space-y-3">
+            <h2 class="text-xs font-mono-tech text-sky-400/80 uppercase tracking-wider border-b border-sky-500/20 pb-1.5 flex justify-between items-center">
+                <span><i class="fa-solid fa-chart-line mr-2"></i>Real-Time Telemetry</span>
+                <span class="animate-pulse text-emerald-400">● LIVE</span>
+            </h2>
+
+            <div class="grid grid-cols-2 gap-3 font-mono-tech">
+                <!-- Satellites Count -->
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-sky-500/20">
+                    <div class="text-2xl font-bold text-sky-300 glow-cyan" id="count-satellites">0</div>
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">Active Satellites</div>
+                </div>
+
+                <!-- Debris Count -->
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-rose-500/20">
+                    <div class="text-2xl font-bold text-rose-400 glow-rose" id="count-debris">0</div>
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">Debris Fragments</div>
+                </div>
+
+                <!-- Cascade Risk Index -->
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-amber-500/20">
+                    <div class="text-2xl font-bold text-amber-400 glow-amber" id="risk-index">0.0%</div>
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">Cascade Risk</div>
+                </div>
+
+                <!-- Atmospheric Burn-ups -->
+                <div class="bg-slate-900/60 p-2.5 rounded-lg border border-orange-500/20">
+                    <div class="text-2xl font-bold text-orange-400" id="count-burns">0</div>
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">Atmospheric Burns</div>
+                </div>
+            </div>
+
+            <!-- Risk Meter Progress Bar -->
+            <div class="space-y-1">
+                <div class="flex justify-between text-[11px] font-mono-tech text-slate-300">
+                    <span>Critical Density Threshold</span>
+                    <span id="risk-percentage-label">0%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-700/50">
+                    <div id="risk-progress-bar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-600 transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Telemetry Chart -->
+        <div class="glass-panel rounded-xl p-4">
+            <h2 class="text-xs font-mono-tech text-sky-400/80 uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-network-wired mr-2"></i>Debris Cascade Velocity
+            </h2>
+            <div class="h-28 w-full">
+                <canvas id="debrisChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Shell Info Card -->
+        <div class="glass-panel rounded-xl p-3 text-xs font-mono-tech space-y-1.5 text-slate-300">
+            <div class="text-sky-400 font-bold border-b border-sky-500/20 pb-1 flex justify-between">
+                <span>ORBITAL SHELLS</span>
+                <span class="text-[10px] text-slate-400">ALTITUDE SCALE</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-teal-400 inline-block mr-2"></span> LEO (Low Earth Orbit)</span>
+                <span class="text-slate-400">160 - 2,000 km</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block mr-2"></span> MEO (Medium Earth)</span>
+                <span class="text-slate-400">2,000 - 35,786 km</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-indigo-400 inline-block mr-2"></span> GEO (Geostationary)</span>
+                <span class="text-slate-400">35,786 km</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Right HUD: Controls & Trigger Panel -->
+    <aside class="absolute top-20 right-4 z-20 w-80 space-y-3 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto pr-1">
+        <!-- Action Trigger Box -->
+        <div class="glass-panel-alert rounded-xl p-4 space-y-3">
+            <h2 class="text-xs font-mono-tech text-rose-400 uppercase tracking-wider border-b border-rose-500/30 pb-1.5 flex items-center">
+                <i class="fa-solid fa-triangle-exclamation mr-2 animate-bounce"></i>Cascade Triggers
+            </h2>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Initiate kinetic strikes or random hypervelocity collisions to test exponential debris chain reactions.
+            </p>
+
+            <div class="space-y-2 pt-1">
+                <button id="btn-trigger-collision" class="w-full py-2.5 px-4 bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white font-mono-tech font-bold text-xs uppercase tracking-wider rounded-lg shadow-lg shadow-rose-950/60 border border-rose-400/40 transition duration-150 transform active:scale-95 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-burst text-sm"></i>
+                    <span>Trigger Satellite Collision</span>
+                </button>
+
+                <button id="btn-asat-strike" class="w-full py-2 px-4 bg-gradient-to-r from-amber-600 to-orange-700 hover:from-amber-500 hover:to-orange-600 text-white font-mono-tech font-bold text-xs uppercase tracking-wider rounded-lg shadow-lg shadow-amber-950/60 border border-amber-400/40 transition duration-150 transform active:scale-95 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-crosshairs text-sm"></i>
+                    <span>Simulate ASAT Missile Impact</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Simulation Parameters -->
+        <div class="glass-panel rounded-xl p-4 space-y-4">
+            <h2 class="text-xs font-mono-tech text-sky-400/80 uppercase tracking-wider border-b border-sky-500/20 pb-1.5 flex justify-between items-center">
+                <span><i class="fa-solid fa-sliders mr-2"></i>Simulation Controls</span>
+                <i class="fa-solid fa-gear text-slate-400"></i>
+            </h2>
+
+            <!-- Play/Pause & Speed -->
+            <div class="flex items-center space-x-2">
+                <button id="btn-play-pause" class="flex-1 py-2 bg-sky-600/30 hover:bg-sky-600/50 border border-sky-400/40 rounded-lg font-mono-tech text-xs text-sky-200 font-semibold transition flex items-center justify-center space-x-2">
+                    <i id="play-icon" class="fa-solid fa-pause"></i>
+                    <span id="play-text">PAUSE</span>
+                </button>
+                <button id="btn-reset" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg font-mono-tech text-xs text-slate-300 transition" title="Reset Simulation">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+            </div>
+
+            <!-- Time Dilation Slider -->
+            <div class="space-y-1.5">
+                <div class="flex justify-between text-xs font-mono-tech">
+                    <span class="text-slate-300">Time Scale Velocity</span>
+                    <span id="speed-val" class="text-sky-400">1.0x</span>
+                </div>
+                <input id="slider-speed" type="range" min="0.1" max="5.0" step="0.1" value="1.0" class="w-full">
+            </div>
+
+            <!-- Satellite Density Slider -->
+            <div class="space-y-1.5">
+                <div class="flex justify-between text-xs font-mono-tech">
+                    <span class="text-slate-300">Satellite Payload Population</span>
+                    <span id="density-val" class="text-sky-400">450</span>
+                </div>
+                <input id="slider-density" type="range" min="50" max="1200" step="25" value="450" class="w-full">
+            </div>
+
+            <!-- Atmospheric Drag Slider -->
+            <div class="space-y-1.5">
+                <div class="flex justify-between text-xs font-mono-tech">
+                    <span class="text-slate-300">Atmospheric Drag Intensity</span>
+                    <span id="drag-val" class="text-sky-400">1.0x</span>
+                </div>
+                <input id="slider-drag" type="range" min="0.0" max="4.0" step="0.2" value="1.0" class="w-full">
+            </div>
+
+            <!-- Visual Options Toggles -->
+            <div class="pt-2 border-t border-slate-700/50 space-y-2 text-xs font-mono-tech">
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-slate-300">Show Orbital Shell Rings</span>
+                    <input type="checkbox" id="toggle-shells" checked class="form-checkbox h-4 w-4 text-sky-500 rounded bg-slate-900 border-slate-700">
+                </label>
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-slate-300">Show Satellite Orbits</span>
+                    <input type="checkbox" id="toggle-trajectories" class="form-checkbox h-4 w-4 text-sky-500 rounded bg-slate-900 border-slate-700">
+                </label>
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-slate-300">Real-Time Collision Detection</span>
+                    <input type="checkbox" id="toggle-collisions" checked class="form-checkbox h-4 w-4 text-rose-500 rounded bg-slate-900 border-slate-700">
+                </label>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Bottom Telemetry Legend Footer -->
+    <footer class="absolute bottom-4 left-4 right-4 z-20 pointer-events-none flex justify-center">
+        <div class="glass-panel px-6 py-2 rounded-full font-mono-tech text-xs text-slate-400 flex items-center space-x-6 border border-sky-500/20">
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+                <span>Active Payload</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block animate-pulse"></span>
+                <span>Debris Fragment</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                <span>Atmospheric Re-entry Burn</span>
+            </div>
+            <div class="text-slate-500">|</div>
+            <div class="text-sky-400">Controls: Left-Click + Drag to Rotate | Scroll to Zoom | Right-Click to Pan</div>
+        </div>
+    </footer>
+
+    <!-- Main Logic Script -->
+    <script>
+        // --- CONSTANTS & SIMULATION STATE ---
+        const EARTH_RADIUS = 10;
+        const LEO_MIN = EARTH_RADIUS + 1.2;
+        const LEO_MAX = EARTH_RADIUS + 3.0;
+        const MEO_MIN = EARTH_RADIUS + 4.5;
+        const MEO_MAX = EARTH_RADIUS + 8.0;
+        const GEO_ALT = EARTH_RADIUS + 12.0;
+
+        let scene, camera, renderer, controls;
+        let earthMesh, atmosphereMesh, cloudMesh;
+        let orbitalShellsGroup = new THREE.Group();
+        
+        let satellites = [];
+        let debrisList = [];
+        let reEntryEffects = [];
+        let explosionEffects = [];
+
+        // Simulation parameters
+        let simConfig = {
+            isPaused: false,
+            timeScale: 1.0,
+            targetSatelliteCount: 450,
+            dragMultiplier: 1.0,
+            showShells: true,
+            showTrajectories: false,
+            collisionsEnabled: true
+        };
+
+        // Telemetry Metrics
+        let stats = {
+            satelliteCount: 0,
+            debrisCount: 0,
+            burnCount: 0,
+            cascadeRisk: 0.0,
+            collisionsThisFrame: 0
+        };
+
+        // Chart.js instance
+        let telemetryChart;
+        let chartHistory = { labels: [], debris: [], satellites: [] };
+
+        // --- THREE.JS INITIALIZATION ---
+        function initThree() {
+            const container = document.getElementById('canvas-container');
+            
+            // Scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x030712, 0.008);
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(25, 18, 32);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
+            container.appendChild(renderer.domElement);
+
+            // OrbitControls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = EARTH_RADIUS + 2;
+            controls.maxDistance = 120;
+
+            // Lighting Setup
+            const ambientLight = new THREE.AmbientLight(0x1e293b, 1.2);
+            scene.add(ambientLight);
+
+            const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
+            sunLight.position.set(50, 20, 30);
+            scene.add(sunLight);
+
+            const blueFillLight = new THREE.DirectionalLight(0x38bdf8, 0.8);
+            blueFillLight.position.set(-40, -10, -30);
+            scene.add(blueFillLight);
+
+            // Build Earth and Atmosphere
+            createEarth();
+            createOrbitalShells();
+            createStarfield();
+
+            scene.add(orbitalShellsGroup);
+
+            // Handle Resize
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        // --- PROCEDURAL EARTH & ATMOSPHERE CREATION ---
+        function createEarth() {
+            // High-detail Procedural Earth Texture Generation via Canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            // Deep blue ocean gradient
+            const oceanGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            oceanGrad.addColorStop(0, '#0284c7');
+            oceanGrad.addColorStop(0.5, '#0369a1');
+            oceanGrad.addColorStop(1, '#0c4a6e');
+            ctx.fillStyle = oceanGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw stylized continental landmasses
+            ctx.fillStyle = '#0f766e'; // Teal land
+            for (let i = 0; i < 250; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.8 + canvas.height * 0.1;
+                const r = Math.random() * 60 + 20;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Darken land texture overlays
+            ctx.fillStyle = '#064e3b';
+            for (let i = 0; i < 180; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.7 + canvas.height * 0.15;
+                const r = Math.random() * 35 + 10;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Canvas Texture
+            const earthTexture = new THREE.CanvasTexture(canvas);
+
+            // Earth Mesh
+            const earthGeo = new THREE.SphereGeometry(EARTH_RADIUS, 64, 64);
+            const earthMat = new THREE.MeshStandardMaterial({
+                map: earthTexture,
+                roughness: 0.6,
+                metalness: 0.1,
+                bumpScale: 0.05
+            });
+            earthMesh = new THREE.Mesh(earthGeo, earthMat);
+            scene.add(earthMesh);
+
+            // Atmospheric Glow Shader / Fresnel Shell
+            const atmosGeo = new THREE.SphereGeometry(EARTH_RADIUS * 1.05, 64, 64);
+            const atmosMat = new THREE.ShaderMaterial({
+                vertexShader: `
+                    varying vec3 vNormal;
+                    void main() {
+                        vNormal = normalize(normalMatrix * normal);
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vNormal;
+                    void main() {
+                        float intensity = pow(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 2.5);
+                        gl_FragColor = vec4(0.22, 0.74, 0.97, 1.0) * intensity * 1.5;
+                    }
+                `,
+                blending: THREE.AdditiveBlending,
+                side: THREE.BackSide,
+                transparent: true
+            });
+            atmosphereMesh = new THREE.Mesh(atmosGeo, atmosMat);
+            scene.add(atmosphereMesh);
+        }
+
+        // --- ORBITAL SHELLS (LEO, MEO, GEO Visuals) ---
+        function createOrbitalShells() {
+            const shells = [
+                { radius: (LEO_MIN + LEO_MAX) / 2, color: 0x2dd4bf, opacity: 0.12, name: 'LEO' },
+                { radius: (MEO_MIN + MEO_MAX) / 2, color: 0x38bdf8, opacity: 0.08, name: 'MEO' },
+                { radius: GEO_ALT, color: 0x818cf8, opacity: 0.06, name: 'GEO' }
+            ];
+
+            shells.forEach(shell => {
+                // Sphere Wireframe Shell
+                const geo = new THREE.SphereGeometry(shell.radius, 32, 16);
+                const wireframeGeo = new THREE.WireframeGeometry(geo);
+                const mat = new THREE.LineBasicMaterial({
+                    color: shell.color,
+                    transparent: true,
+                    opacity: shell.opacity
+                });
+                const line = new THREE.LineSegments(wireframeGeo, mat);
+                orbitalShellsGroup.add(line);
+
+                // Equatorial Accent Ring
+                const ringGeo = new THREE.RingGeometry(shell.radius - 0.05, shell.radius + 0.05, 128);
+                const ringMat = new THREE.MeshBasicMaterial({
+                    color: shell.color,
+                    side: THREE.DoubleSide,
+                    transparent: true,
+                    opacity: shell.opacity * 2.5
+                });
+                const ring = new THREE.Mesh(ringGeo, ringMat);
+                ring.rotation.x = Math.PI / 2;
+                orbitalShellsGroup.add(ring);
+            });
+        }
+
+        // Background Starfield Particles
+        function createStarfield() {
+            const starsGeo = new THREE.BufferGeometry();
+            const count = 3000;
+            const positions = new Float32Array(count * 3);
+
+            for (let i = 0; i < count * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 400;
+                positions[i + 1] = (Math.random() - 0.5) * 400;
+                positions[i + 2] = (Math.random() - 0.5) * 400;
+            }
+
+            starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const starsMat = new THREE.PointsMaterial({
+                color: 0x94a3b8,
+                size: 0.6,
+                transparent: true,
+                opacity: 0.7
+            });
+            const starfield = new THREE.Points(starsGeo, starsMat);
+            scene.add(starfield);
+        }
+
+        // --- SATELLITES & KEPLERIAN ORBIT DYNAMICS ---
+        class Satellite {
+            constructor(altitude, inclination, color = 0x38bdf8) {
+                this.altitude = altitude;
+                this.inclination = inclination; // Radians
+                this.longitudeOfAscendingNode = Math.random() * Math.PI * 2;
+                this.trueAnomaly = Math.random() * Math.PI * 2;
+                
+                // Orbital speed relative to distance (Keplerian physics approximation)
+                this.speed = (Math.sqrt(398.6 / Math.pow(altitude, 3)) * 0.05);
+
+                // Visual Representation
+                const geo = new THREE.SphereGeometry(0.12, 8, 8);
+                const mat = new THREE.MeshBasicMaterial({ color: color });
+                this.mesh = new THREE.Mesh(geo, mat);
+                
+                // Trajectory Line
+                this.trajectoryLine = this.createTrajectoryLine(color);
+                this.trajectoryLine.visible = simConfig.showTrajectories;
+
+                scene.add(this.mesh);
+                scene.add(this.trajectoryLine);
+
+                this.updatePosition();
+            }
+
+            createTrajectoryLine(color) {
+                const points = [];
+                const segments = 64;
+                for (let i = 0; i <= segments; i++) {
+                    const theta = (i / segments) * Math.PI * 2;
+                    const pos = this.calculatePosition(theta);
+                    points.push(pos);
+                }
+                const geo = new THREE.BufferGeometry().setFromPoints(points);
+                const mat = new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.25 });
+                return new THREE.Line(geo, mat);
+            }
+
+            calculatePosition(theta) {
+                // Orbital plane rotation matrix calculations
+                const x = this.altitude * Math.cos(theta);
+                const y = 0;
+                const z = this.altitude * Math.sin(theta);
+
+                // Apply Inclination & Longitude of Ascending Node
+                const pos = new THREE.Vector3(x, y, z);
+                pos.applyAxisAngle(new THREE.Vector3(1, 0, 0), this.inclination);
+                pos.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.longitudeOfAscendingNode);
+                return pos;
+            }
+
+            update(delta) {
+                this.trueAnomaly += this.speed * delta * simConfig.timeScale;
+                if (this.trueAnomaly > Math.PI * 2) this.trueAnomaly -= Math.PI * 2;
+                this.updatePosition();
+            }
+
+            updatePosition() {
+                const pos = this.calculatePosition(this.trueAnomaly);
+                this.mesh.position.copy(pos);
+            }
+
+            destroy() {
+                scene.remove(this.mesh);
+                scene.remove(this.trajectoryLine);
+                this.mesh.geometry.dispose();
+                this.mesh.material.dispose();
+                this.trajectoryLine.geometry.dispose();
+                this.trajectoryLine.material.dispose();
+            }
+        }
+
+        // --- DEBRIS FRAGMENTS & ATMOSPHERIC DECAY ---
+        class DebrisFragment {
+            constructor(position, velocityVector) {
+                this.position = position.clone();
+                this.velocity = velocityVector.clone();
+                this.radius = position.length();
+                this.isDead = false;
+
+                // Debris Visual Mesh (Glowing red/pink point)
+                const geo = new THREE.BufferGeometry();
+                geo.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0], 3));
+                const mat = new THREE.PointsMaterial({
+                    color: 0xf43f5e,
+                    size: 0.35,
+                    transparent: true,
+                    opacity: 0.9
+                });
+                this.mesh = new THREE.Points(geo, mat);
+                this.mesh.position.copy(this.position);
+                scene.add(this.mesh);
+            }
+
+            update(delta) {
+                if (this.isDead) return;
+
+                const dt = delta * simConfig.timeScale;
+
+                // Gravitational Acceleration towards Earth center: a = -G*M / r^2
+                const r = this.position.length();
+                const gravityMagnitude = 398.6 / (r * r);
+                const gravityVector = this.position.clone().normalize().multiplyScalar(-gravityMagnitude);
+
+                // Velocity update with Gravity
+                this.velocity.addScaledVector(gravityVector, dt * 0.05);
+
+                // Atmospheric Drag Model in Lower Orbits (LEO < 13.0 radius)
+                if (r < EARTH_RADIUS + 3.0) {
+                    const altFactor = Math.max(0, 1.0 - (r - EARTH_RADIUS) / 3.0);
+                    const dragMagnitude = 0.08 * altFactor * simConfig.dragMultiplier;
+                    
+                    // Drag opposes velocity direction
+                    this.velocity.multiplyScalar(1 - (dragMagnitude * dt));
+                }
+
+                // Position Update
+                this.position.addScaledVector(this.velocity, dt);
+                this.mesh.position.copy(this.position);
+
+                // Re-entry check: Burning up upon hitting upper atmosphere (r <= EARTH_RADIUS + 0.3)
+                if (r <= EARTH_RADIUS + 0.3) {
+                    this.burnUp();
+                }
+            }
+
+            burnUp() {
+                this.isDead = true;
+                stats.burnCount++;
+                createReEntryStreak(this.position);
+                this.destroy();
+            }
+
+            destroy() {
+                scene.remove(this.mesh);
+                this.mesh.geometry.dispose();
+                this.mesh.material.dispose();
+            }
+        }
+
+        // Visual Re-Entry Fireball Streak Effect
+        function createReEntryStreak(position) {
+            const streakGeo = new THREE.BufferGeometry();
+            const streakPos = [
+                position.x, position.y, position.z,
+                position.x * 1.05, position.y * 1.05, position.z * 1.05
+            ];
+            streakGeo.setAttribute('position', new THREE.Float32BufferAttribute(streakPos, 3));
+            const streakMat = new THREE.LineBasicMaterial({
+                color: 0xf97316,
+                transparent: true,
+                opacity: 1.0,
+                linewidth: 2
+            });
+            const line = new THREE.Line(streakGeo, streakMat);
+            scene.add(line);
+
+            reEntryEffects.push({
+                mesh: line,
+                life: 1.0
+            });
+        }
+
+        // Collision Explosion Flash Visual
+        function createExplosionFlash(position) {
+            const flashGeo = new THREE.SphereGeometry(0.6, 16, 16);
+            const flashMat = new THREE.MeshBasicMaterial({
+                color: 0xfacc15,
+                transparent: true,
+                opacity: 0.9
+            });
+            const flash = new THREE.Mesh(flashGeo, flashMat);
+            flash.position.copy(position);
+            scene.add(flash);
+
+            explosionEffects.push({
+                mesh: flash,
+                life: 1.0
+            });
+        }
+
+        // --- POPULATION MANAGEMENT ---
+        function setSatellitePopulation(targetCount) {
+            // Add or remove satellites to reach target count
+            while (satellites.length < targetCount) {
+                // Distribute across LEO, MEO, GEO weighted
+                const rand = Math.random();
+                let alt;
+                if (rand < 0.70) {
+                    alt = THREE.MathUtils.lerp(LEO_MIN, LEO_MAX, Math.random());
+                } else if (rand < 0.90) {
+                    alt = THREE.MathUtils.lerp(MEO_MIN, MEO_MAX, Math.random());
+                } else {
+                    alt = GEO_ALT;
+                }
+                const inc = (Math.random() - 0.5) * Math.PI;
+                satellites.push(new Satellite(alt, inc));
+            }
+
+            while (satellites.length > targetCount) {
+                const sat = satellites.pop();
+                sat.destroy();
+            }
+        }
+
+        // --- CASCADE COLLISION DETECTION & DISRUPTION ---
+        function triggerCollisionAt(position, fragmentCount = 20) {
+            createExplosionFlash(position);
+
+            // Generate debris spray vectors
+            for (let i = 0; i < fragmentCount; i++) {
+                // Orbital tangent direction + random velocity dispersion vector
+                const tangent = new THREE.Vector3(-position.z, position.y * 0.2, position.x).normalize();
+                const dispersion = new THREE.Vector3(
+                    (Math.random() - 0.5) * 1.8,
+                    (Math.random() - 0.5) * 1.8,
+                    (Math.random() - 0.5) * 1.8
+                );
+                
+                const debrisVel = tangent.multiplyScalar(0.8 + Math.random() * 0.6).add(dispersion);
+                debrisList.push(new DebrisFragment(position, debrisVel));
+            }
+        }
+
+        function triggerRandomCollision() {
+            if (satellites.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * satellites.length);
+            const targetSat = satellites[randomIndex];
+            
+            triggerCollisionAt(targetSat.mesh.position, 28);
+            
+            // Remove target satellite
+            targetSat.destroy();
+            satellites.splice(randomIndex, 1);
+            
+            stats.collisionsThisFrame++;
+        }
+
+        function triggerASATStrike() {
+            // Target LEO satellite specifically
+            const leoSatellites = satellites.filter(s => s.altitude <= LEO_MAX);
+            if (leoSatellites.length === 0) return;
+
+            const targetSat = leoSatellites[Math.floor(Math.random() * leoSatellites.length)];
+            const idx = satellites.indexOf(targetSat);
+
+            // Large debris cloud generator
+            triggerCollisionAt(targetSat.mesh.position, 55);
+
+            targetSat.destroy();
+            if (idx > -1) satellites.splice(idx, 1);
+            stats.collisionsThisFrame++;
+        }
+
+        // Secondary Cascading Collision Check Loop
+        function checkCollisions() {
+            if (!simConfig.collisionsEnabled) return;
+
+            const collisionThreshold = 0.55; // Proximity distance limit
+
+            // Check Debris vs Satellite impacts
+            for (let i = debrisList.length - 1; i >= 0; i--) {
+                const debris = debrisList[i];
+                if (debris.isDead) continue;
+
+                for (let j = satellites.length - 1; j >= 0; j--) {
+                    const sat = satellites[j];
+                    const dist = debris.position.distanceTo(sat.mesh.position);
+
+                    if (dist < collisionThreshold) {
+                        // KESSLER CASCADE SECONDARY IMPACT TRIGGER!
+                        triggerCollisionAt(sat.mesh.position, 16);
+
+                        // Destroy satellite
+                        sat.destroy();
+                        satellites.splice(j, 1);
+
+                        stats.collisionsThisFrame++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // --- CHART.JS METRICS CHART INITIALIZATION ---
+        function initChart() {
+            const ctx = document.getElementById('debrisChart').getContext('2d');
+            telemetryChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartHistory.labels,
+                    datasets: [
+                        {
+                            label: 'Debris',
+                            data: chartHistory.debris,
+                            borderColor: '#f43f5e',
+                            backgroundColor: 'rgba(244, 63, 94, 0.15)',
+                            fill: true,
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Payloads',
+                            data: chartHistory.satellites,
+                            borderColor: '#38bdf8',
+                            borderWidth: 1.5,
+                            pointRadius: 0,
+                            borderDash: [3, 3],
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { display: false },
+                        y: {
+                            grid: { color: 'rgba(51, 65, 85, 0.3)' },
+                            ticks: { color: '#94a3b8', font: { family: 'Share Tech Mono', size: 9 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateTelemetryHUD() {
+            // Update Text Displays
+            document.getElementById('count-satellites').innerText = satellites.length;
+            document.getElementById('count-debris').innerText = debrisList.length;
+            document.getElementById('count-burns').innerText = stats.burnCount;
+
+            // Cascade Risk Calculation Model
+            const density = (satellites.length + debrisList.length * 1.5) / 500;
+            const riskValue = Math.min(100, Math.pow(density, 2.2) * 18);
+            document.getElementById('risk-index').innerText = `${riskValue.toFixed(1)}%`;
+            document.getElementById('risk-percentage-label').innerText = `${Math.round(riskValue)}%`;
+            document.getElementById('risk-progress-bar').style.width = `${Math.min(100, riskValue)}%`;
+
+            // Status Badge Formatting
+            const statusBadge = document.getElementById('cascade-status-badge');
+            const statusText = document.getElementById('status-text');
+
+            if (riskValue > 75 || debrisList.length > 350) {
+                statusBadge.className = "px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center space-x-2 border border-rose-500/50 bg-rose-950/80 text-rose-400 shadow-lg shadow-rose-950/50 animate-pulse";
+                statusText.innerText = "CRITICAL: KESSLER CASCADE EVENT IN PROGRESS";
+            } else if (riskValue > 35 || debrisList.length > 100) {
+                statusBadge.className = "px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center space-x-2 border border-amber-500/40 bg-amber-950/60 text-amber-400 shadow-md";
+                statusText.innerText = "WARNING: HIGH ORBITAL DENSITY";
+            } else {
+                statusBadge.className = "px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center space-x-2 border border-emerald-500/30 bg-emerald-950/50 text-emerald-400 shadow-md";
+                statusText.innerText = "SYSTEM STABLE - LOW DENSITY";
+            }
+
+            // Push data to Chart
+            if (chartHistory.labels.length > 40) {
+                chartHistory.labels.shift();
+                chartHistory.debris.shift();
+                chartHistory.satellites.shift();
+            }
+            chartHistory.labels.push('');
+            chartHistory.debris.push(debrisList.length);
+            chartHistory.satellites.push(satellites.length);
+            telemetryChart.update();
+        }
+
+        // --- SIMULATION RESET & EVENT LISTENERS ---
+        function resetSimulation() {
+            // Clear Debris
+            debrisList.forEach(d => d.destroy());
+            debrisList = [];
+
+            // Clear Effects
+            reEntryEffects.forEach(e => scene.remove(e.mesh));
+            explosionEffects.forEach(e => scene.remove(e.mesh));
+            reEntryEffects = [];
+            explosionEffects = [];
+
+            stats.burnCount = 0;
+            stats.collisionsThisFrame = 0;
+
+            // Reset Satellites
+            satellites.forEach(s => s.destroy());
+            satellites = [];
+            setSatellitePopulation(simConfig.targetSatelliteCount);
+        }
+
+        function setupUIControls() {
+            // Play / Pause
+            const playBtn = document.getElementById('btn-play-pause');
+            const playIcon = document.getElementById('play-icon');
+            const playText = document.getElementById('play-text');
+            playBtn.addEventListener('click', () => {
+                simConfig.isPaused = !simConfig.isPaused;
+                if (simConfig.isPaused) {
+                    playIcon.className = "fa-solid fa-play";
+                    playText.innerText = "RESUME";
+                    playBtn.classList.replace('bg-sky-600/30', 'bg-amber-600/40');
+                } else {
+                    playIcon.className = "fa-solid fa-pause";
+                    playText.innerText = "PAUSE";
+                    playBtn.classList.replace('bg-amber-600/40', 'bg-sky-600/30');
+                }
+            });
+
+            // Reset
+            document.getElementById('btn-reset').addEventListener('click', resetSimulation);
+
+            // Triggers
+            document.getElementById('btn-trigger-collision').addEventListener('click', triggerRandomCollision);
+            document.getElementById('btn-asat-strike').addEventListener('click', triggerASATStrike);
+
+            // Speed Slider
+            const speedSlider = document.getElementById('slider-speed');
+            speedSlider.addEventListener('input', (e) => {
+                simConfig.timeScale = parseFloat(e.target.value);
+                document.getElementById('speed-val').innerText = `${simConfig.timeScale.toFixed(1)}x`;
+            });
+
+            // Density Slider
+            const densitySlider = document.getElementById('slider-density');
+            densitySlider.addEventListener('input', (e) => {
+                simConfig.targetSatelliteCount = parseInt(e.target.value);
+                document.getElementById('density-val').innerText = simConfig.targetSatelliteCount;
+                setSatellitePopulation(simConfig.targetSatelliteCount);
+            });
+
+            // Atmospheric Drag Slider
+            const dragSlider = document.getElementById('slider-drag');
+            dragSlider.addEventListener('input', (e) => {
+                simConfig.dragMultiplier = parseFloat(e.target.value);
+                document.getElementById('drag-val').innerText = `${simConfig.dragMultiplier.toFixed(1)}x`;
+            });
+
+            // Visual Toggles
+            document.getElementById('toggle-shells').addEventListener('change', (e) => {
+                orbitalShellsGroup.visible = e.target.checked;
+            });
+
+            document.getElementById('toggle-trajectories').addEventListener('change', (e) => {
+                simConfig.showTrajectories = e.target.checked;
+                satellites.forEach(s => s.trajectoryLine.visible = simConfig.showTrajectories);
+            });
+
+            document.getElementById('toggle-collisions').addEventListener('change', (e) => {
+                simConfig.collisionsEnabled = e.target.checked;
+            });
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- ANIMATION LOOP ---
+        let clock = new THREE.Clock();
+        let telemetryTimer = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const delta = clock.getDelta();
+
+            controls.update();
+
+            // Slowly rotate Earth globe
+            if (earthMesh) earthMesh.rotation.y += 0.02 * delta * simConfig.timeScale;
+
+            if (!simConfig.isPaused) {
+                // Update Satellite orbits
+                satellites.forEach(sat => sat.update(delta));
+
+                // Update Debris vectors and decay
+                for (let i = debrisList.length - 1; i >= 0; i--) {
+                    const debris = debrisList[i];
+                    debris.update(delta);
+                    if (debris.isDead) {
+                        debrisList.splice(i, 1);
+                    }
+                }
+
+                // Check Cascading Secondary Collisions
+                checkCollisions();
+
+                // Update Re-entry Visual Streaks
+                for (let i = reEntryEffects.length - 1; i >= 0; i--) {
+                    const effect = reEntryEffects[i];
+                    effect.life -= delta * 2.0;
+                    effect.mesh.material.opacity = effect.life;
+                    if (effect.life <= 0) {
+                        scene.remove(effect.mesh);
+                        effect.mesh.geometry.dispose();
+                        effect.mesh.material.dispose();
+                        reEntryEffects.splice(i, 1);
+                    }
+                }
+
+                // Update Explosion Flashes
+                for (let i = explosionEffects.length - 1; i >= 0; i--) {
+                    const flash = explosionEffects[i];
+                    flash.life -= delta * 3.0;
+                    flash.mesh.scale.addScalar(delta * 4.0);
+                    flash.mesh.material.opacity = flash.life;
+                    if (flash.life <= 0) {
+                        scene.remove(flash.mesh);
+                        flash.mesh.geometry.dispose();
+                        flash.mesh.material.dispose();
+                        explosionEffects.splice(i, 1);
+                    }
+                }
+            }
+
+            // Update Telemetry HUD every 0.25 seconds
+            telemetryTimer += delta;
+            if (telemetryTimer > 0.25) {
+                updateTelemetryHUD();
+                telemetryTimer = 0;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // --- INITIALIZATION ENTRY POINT ---
+        window.onload = function() {
+            initThree();
+            initChart();
+            setSatellitePopulation(simConfig.targetSatelliteCount);
+            setupUIControls();
+            animate();
+        };
+    </script>
+</body>
+</html>

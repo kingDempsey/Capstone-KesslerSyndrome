@@ -207,65 +207,20 @@
         <section id="3d-visualizer" class="space-y-4">
             <div class="flex justify-between items-end">
                 <div>
-                    <span class="text-xs font-mono uppercase tracking-widest text-burntorange">Interactive Canvas Placeholder</span>
+                    <span class="text-xs font-mono uppercase tracking-widest text-burntorange">Interactive Orbital Simulation</span>
                     <h2 class="font-serif text-3xl font-normal text-coffee">3D Kessler Cascade Engine</h2>
                 </div>
                 <span class="text-xs font-mono text-slate-400">Three.js / WebGL Sandbox Frame</span>
             </div>
 
-            <!-- EMBED CONTAINER FOR FUTURE 3D VISUALIZER -->
-            <div class="relative w-full h-[550px] bg-coffee border-2 border-slate-800 rounded-none overflow-hidden flex flex-col justify-between p-6 shadow-2xl">
-                <!-- Background Grid Graphic Overlay -->
-                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#778DA9_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-
-                <!-- Top Bar HUD Controls Placeholder -->
-                <div class="relative z-10 flex justify-between items-center text-xs font-mono text-slate-400 border-b border-slate-800 pb-3">
-                    <div class="flex items-center space-x-4">
-                        <span class="flex items-center space-x-1.5 text-burntorange">
-                            <span class="w-2 h-2 rounded-full bg-burntorange animate-pulse"></span>
-                            <span>ENGINE READY</span>
-                        </span>
-                        <span>Altitude: 700 - 1200 km</span>
-                        <span>Sim Rate: 510 obj/yr</span>
-                    </div>
-                    <div class="space-x-2">
-                        <button class="px-2 py-1 bg-slate-800 text-offwhite border border-slate-700 hover:border-burntorange transition text-[11px]">RESET SIM</button>
-                        <button class="px-2 py-1 bg-burntorange text-white font-bold text-[11px]">TRIGGER COLLISION</button>
-                    </div>
-                </div>
-
-                <!-- Center Placeholder Graphic & Instructions -->
-                <div class="relative z-10 flex flex-col items-center justify-center space-y-4 text-center my-auto">
-                    <div class="w-16 h-16 rounded-full border border-slate-700 flex items-center justify-center text-slate-500 font-mono text-xs">
-                        3D
-                    </div>
-                    <div class="max-w-md space-y-2">
-                        <h3 class="font-serif text-xl text-offwhite">Reserved WebGL / Three.js Container</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed font-sans">
-                            This container is designated for the interactive 3D Orbital Debris Visualizer. It will render satellite orbital shells, propagate fragment vectors following collisions, and model atmospheric decay curves in real-time.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Bottom Bar Status Metrics Placeholder -->
-                <div class="relative z-10 grid grid-cols-4 gap-4 border-t border-slate-800 pt-3 text-[11px] font-mono text-slate-400">
-                    <div>
-                        <span class="block text-slate-600">SPATIAL DENSITY (S)</span>
-                        <span class="text-offwhite font-bold">2.8 × 10⁻⁹ / km³</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-600">METEOROID FLUX CROSSOVER</span>
-                        <span class="text-burntorange font-bold">Year 1997 – 2020</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-600">AVG IMPACT VELOCITY</span>
-                        <span class="text-offwhite font-bold">10.0 km/s</span>
-                    </div>
-                    <div>
-                        <span class="block text-slate-600">EQUILIBRIUM DRAG SINK</span>
-                        <span class="text-slate-300">Active @ 800 km</span>
-                    </div>
-                </div>
+            <div class="relative w-full h-[550px] bg-coffee border-2 border-slate-800 rounded-none overflow-hidden shadow-2xl">
+                <iframe
+                    src="cascade-visualizer.html"
+                    title="Interactive 3D Kessler Cascade Visualizer"
+                    class="absolute inset-0 h-full w-full border-0"
+                    loading="lazy"
+                    allow="fullscreen"
+                ></iframe>
             </div>
         </section>
 
