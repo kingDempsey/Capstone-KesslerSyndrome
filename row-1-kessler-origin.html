@@ -30,6 +30,13 @@
     <!-- MathJax for rendering formulas -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .visualizer-frame:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border: 0;
+        }
+    </style>
 </head>
 <body class="bg-[#F5F5F5] text-coffee antialiased font-sans selection:bg-burntorange selection:text-white">
 
@@ -213,7 +220,13 @@
                 <span class="text-xs font-mono text-slate-400">Three.js / WebGL Sandbox Frame</span>
             </div>
 
-            <div class="relative w-full h-[550px] bg-coffee border-2 border-slate-800 rounded-none overflow-hidden shadow-2xl">
+            <div id="visualizer-frame" class="visualizer-frame relative w-full h-[550px] bg-coffee border-2 border-slate-800 rounded-none overflow-hidden shadow-2xl">
+                <div class="absolute right-3 top-3 z-20 flex items-center gap-2">
+                    <span id="visualizer-fullscreen-status" class="rounded bg-coffee/90 px-2 py-1 text-xs text-offwhite" role="status" aria-live="polite"></span>
+                    <button id="visualizer-fullscreen-toggle" type="button" class="rounded border border-slate-600 bg-coffee/90 px-3 py-2 text-xs font-semibold text-offwhite hover:border-burntorange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-burntorange">
+                        Fullscreen
+                    </button>
+                </div>
                 <iframe
                     src="cascade-visualizer.html"
                     title="Interactive 3D Kessler Cascade Visualizer"
@@ -308,6 +321,30 @@
         </footer>
 
     </main>
+    <script>
+        const visualizerFrame = document.getElementById('visualizer-frame');
+        const fullscreenToggle = document.getElementById('visualizer-fullscreen-toggle');
+        const fullscreenStatus = document.getElementById('visualizer-fullscreen-status');
 
+        fullscreenToggle.addEventListener('click', async () => {
+            fullscreenStatus.textContent = '';
+            try {
+                if (document.fullscreenElement === visualizerFrame) {
+                    await document.exitFullscreen();
+                } else {
+                    await visualizerFrame.requestFullscreen();
+                }
+            } catch (error) {
+                console.error('Unable to change visualizer fullscreen mode.', error);
+                fullscreenStatus.textContent = 'Fullscreen could not be opened. Check your browser permissions.';
+            }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            const isFullscreen = document.fullscreenElement === visualizerFrame;
+            fullscreenToggle.textContent = isFullscreen ? 'Exit fullscreen' : 'Fullscreen';
+            fullscreenToggle.setAttribute('aria-label', isFullscreen ? 'Exit fullscreen' : 'View visualizer fullscreen');
+        });
+    </script>
 </body>
 </html>

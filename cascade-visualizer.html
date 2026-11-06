@@ -79,6 +79,19 @@
         .border-glow-cyan { box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
         .border-glow-rose { box-shadow: 0 0 10px rgba(244, 63, 94, 0.4); }
 
+        .simulation-hud {
+            transition: opacity 350ms ease;
+        }
+        body.hud-idle .simulation-hud {
+            opacity: 0;
+            pointer-events: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .simulation-hud {
+                transition: none;
+            }
+        }
+
         /* Custom Range Slider */
         input[type=range] {
             -webkit-appearance: none;
@@ -125,7 +138,7 @@
         </div>
 
         <!-- Simulation Status Pill -->
-        <div class="pointer-events-auto flex items-center space-x-4">
+        <div class="simulation-hud pointer-events-auto flex items-center space-x-4">
             <div id="cascade-status-badge" class="px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center space-x-2 border border-emerald-500/30 bg-emerald-950/50 text-emerald-400 shadow-md">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 <span id="status-text">SYSTEM STABLE - LOW DENSITY</span>
@@ -134,7 +147,7 @@
     </header>
 
     <!-- Left HUD: Telemetry Metrics -->
-    <aside class="absolute top-20 left-4 z-20 w-80 space-y-3 pointer-events-auto">
+    <aside aria-label="Telemetry metrics" tabindex="0" class="simulation-hud absolute top-20 left-4 z-20 w-80 space-y-3 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto pr-1">
         <!-- Live Counters Card -->
         <div class="glass-panel rounded-xl p-4 space-y-3">
             <h2 class="text-xs font-mono-tech text-sky-400/80 uppercase tracking-wider border-b border-sky-500/20 pb-1.5 flex justify-between items-center">
@@ -212,7 +225,7 @@
     </aside>
 
     <!-- Right HUD: Controls & Trigger Panel -->
-    <aside class="absolute top-20 right-4 z-20 w-80 space-y-3 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto pr-1">
+    <aside aria-label="Simulation controls" class="simulation-hud absolute top-20 right-4 z-20 w-80 space-y-3 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto pr-1">
         <!-- Action Trigger Box -->
         <div class="glass-panel-alert rounded-xl p-4 space-y-3">
             <h2 class="text-xs font-mono-tech text-rose-400 uppercase tracking-wider border-b border-rose-500/30 pb-1.5 flex items-center">
@@ -298,26 +311,6 @@
         </div>
     </aside>
 
-    <!-- Bottom Telemetry Legend Footer -->
-    <footer class="absolute bottom-4 left-4 right-4 z-20 pointer-events-none flex justify-center">
-        <div class="glass-panel px-6 py-2 rounded-full font-mono-tech text-xs text-slate-400 flex items-center space-x-6 border border-sky-500/20">
-            <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
-                <span>Active Payload</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block animate-pulse"></span>
-                <span>Debris Fragment</span>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
-                <span>Atmospheric Re-entry Burn</span>
-            </div>
-            <div class="text-slate-500">|</div>
-            <div class="text-sky-400">Controls: Left-Click + Drag to Rotate | Scroll to Zoom | Right-Click to Pan</div>
-        </div>
-    </footer>
-
     <!-- Main Logic Script -->
     <script>
         // --- CONSTANTS & SIMULATION STATE ---
@@ -387,6 +380,25 @@
             controls.dampingFactor = 0.05;
             controls.minDistance = EARTH_RADIUS + 2;
             controls.maxDistance = 120;
+            let hudIdleTimeout;
+            const hideHud = () => {
+                clearTimeout(hudIdleTimeout);
+                document.body.classList.add('hud-idle');
+            };
+            const showHudAfterIdle = () => {
+                clearTimeout(hudIdleTimeout);
+                hudIdleTimeout = setTimeout(() => {
+                    document.body.classList.remove('hud-idle');
+                }, 2000);
+            };
+            controls.addEventListener('start', hideHud);
+            controls.addEventListener('end', showHudAfterIdle);
+            renderer.domElement.addEventListener('pointerdown', hideHud);
+            window.addEventListener('pointerup', showHudAfterIdle);
+            renderer.domElement.addEventListener('wheel', () => {
+                hideHud();
+                showHudAfterIdle();
+            }, { passive: true });
 
             // Lighting Setup
             const ambientLight = new THREE.AmbientLight(0x1e293b, 1.2);
